@@ -44,13 +44,13 @@ class AppNavbar extends Component {
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='justify-content-start mr-auto'>
-            <NavDropdown title='Add' id='basic-nav-dropdown'>
+            <NavDropdown hidden={!this.state.userLoggedIn} title='Add' id='basic-nav-dropdown'>
               <NavDropdown.Item href='#'>New link</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href='#'>New tag</NavDropdown.Item>
             </NavDropdown>
           </Nav>
-          <Nav className='justify-content-center'>
+          <Nav hidden={!this.state.userLoggedIn} className='justify-content-center'>
             <Nav.Item>
               <Form inline>
                 <FormControl type='text' placeholder='Search...' className='mr-sm-2' />
