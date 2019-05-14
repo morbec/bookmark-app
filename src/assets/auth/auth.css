@@ -17,11 +17,7 @@ html {
   height: 100vh;
 }
 
-/* .container-form {
-} */
-
 .label-input {
   padding: 10px;
-  display: block;
-  /* line-height: 100px; */
+  display: inline-block;
 }
