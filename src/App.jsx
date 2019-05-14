@@ -6,7 +6,7 @@ import SignUp from './components/Auth/SignUp'
 import Login from './components/Auth/Login'
 import { loggedIn } from './services/auth'
 
-import './App.css'
+// import './App.css'
 
 const browserHistory = createBrowserHistory()
 

@@ -2,6 +2,8 @@
 import React, { Component } from 'react'
 import { login } from '../../services/auth'
 
+import '../../assets/auth/auth.css'
+
 class Login extends Component {
   state = {
     email: '',
@@ -30,10 +32,11 @@ class Login extends Component {
   render() {
     return (
       <div className='container'>
-        <div className='container form'>
+        <div className='container-form'>
           <form onSubmit={this.onSubmit}>
-            <div>
+            <div className='label-input'>
               <label htmlFor='email'>
+                Email:
                 <input
                   type='email'
                   name='email'
