@@ -1,3 +1,4 @@
+/* eslint-disable react/no-did-update-set-state */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unused-state */
 import React, { Component } from 'react'
@@ -9,9 +10,26 @@ import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 
+import { logout } from '../services/auth'
+
 class AppNavbar extends Component {
   state = {
     userLoggedIn: this.props.userLoggedIn,
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.userLoggedIn !== prevProps.userLoggedIn) {
+      this.setState({
+        userLoggedIn: this.props.userLoggedIn,
+      })
+    }
+  }
+
+  handleLogout = () => {
+    logout().then(() => {
+      this.setState({ userLoggedIn: null })
+      this.props.setUser(null)
+    })
   }
 
   render() {
@@ -41,14 +59,28 @@ class AppNavbar extends Component {
             </Nav.Item>
           </Nav>
           <Nav className='justify-content-end'>
-            <Nav.Item>
-              <Nav.Link variant='outline-linfo'>
-                {/* TODO: Move style to css file */}
-                <Link to='/login' style={{ textDecoration: 'none', color: '#9A9DA0' }}>
-                  Log in
-                </Link>
-              </Nav.Link>
-            </Nav.Item>
+            {this.state.userLoggedIn ? (
+              <Nav.Item>
+                <Nav.Link variant='outline-linfo'>
+                  {/* TODO: Move style to css file */}
+                  <Link
+                    to='/'
+                    onClick={this.handleLogout}
+                    style={{ textDecoration: 'none', color: '#9A9DA0' }}>
+                    Log out
+                  </Link>
+                </Nav.Link>
+              </Nav.Item>
+            ) : (
+              <Nav.Item>
+                <Nav.Link variant='outline-linfo'>
+                  {/* TODO: Move style to css file */}
+                  <Link to='/login' style={{ textDecoration: 'none', color: '#9A9DA0' }}>
+                    Log in
+                  </Link>
+                </Nav.Link>
+              </Nav.Item>
+            )}
             <Nav.Item>
               <Nav.Link variant='outline-info'>
                 {/* TODO: Move style to css file */}
