@@ -39,8 +39,8 @@ class App extends Component {
     return (
       <div className='App'>
         <Router history={browserHistory}>
+          <AppNavbar />
           <Switch>
-            <AppNavbar />
             <Route exact path='/sign-up' render={() => <SignUp setUser={this.setUser} />} />
             <Route exact path='/login' render={() => <Login setUser={this.setUser} />} />
           </Switch>

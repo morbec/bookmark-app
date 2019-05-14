@@ -1,5 +1,7 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/no-unused-state */
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import FormControl from 'react-bootstrap/FormControl'
 import Form from 'react-bootstrap/Form'
@@ -9,13 +11,18 @@ import NavDropdown from 'react-bootstrap/NavDropdown'
 
 class AppNavbar extends Component {
   state = {
-    userLoggedIn: null,
+    userLoggedIn: this.props.userLoggedIn,
   }
 
   render() {
     return (
       <Navbar sticky='top' variant='dark' bg='dark' expand='lg'>
-        <Navbar.Brand href='#home'>Bookmarks</Navbar.Brand>
+        <Navbar.Brand>
+          {/* TODO: Move style to css file */}
+          <Link to='/' style={{ textDecoration: 'none', color: '#9A9DA0' }}>
+            Bookmarks
+          </Link>
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='justify-content-start mr-auto'>
@@ -35,13 +42,19 @@ class AppNavbar extends Component {
           </Nav>
           <Nav className='justify-content-end'>
             <Nav.Item>
-              <Nav.Link variant='outline-linfo' href='/login'>
-                Login
+              <Nav.Link variant='outline-linfo'>
+                {/* TODO: Move style to css file */}
+                <Link to='/login' style={{ textDecoration: 'none', color: '#9A9DA0' }}>
+                  Log in
+                </Link>
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link variant='outline-info' href='/sign-up'>
-                Sign up
+              <Nav.Link variant='outline-info'>
+                {/* TODO: Move style to css file */}
+                <Link to='/sign-up' style={{ textDecoration: 'none', color: '#9A9DA0' }}>
+                  Sign up
+                </Link>
               </Nav.Link>
             </Nav.Item>
           </Nav>
