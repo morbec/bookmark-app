@@ -1,6 +1,12 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react'
+import Button from 'react-bootstrap/Button'
+import Col from 'react-bootstrap/Col'
+import Form from 'react-bootstrap/Form'
+import Row from 'react-bootstrap/Row'
 import { signup } from '../../services/auth'
+
+import '../../assets/auth/auth.css'
 
 class SignUp extends Component {
   state = {
@@ -32,50 +38,50 @@ class SignUp extends Component {
   render() {
     return (
       <div className='container'>
-        <div className='container-form'>
-          <form onSubmit={this.onSubmit}>
-            <div>
-              <label htmlFor='name' value='name'>
-                Name:
-                <input
-                  type='text'
-                  name='name'
-                  value={this.state.name}
-                  onChange={this.onChange}
-                  placeholder='Enter your name'
-                />
-              </label>
-            </div>
-            <div>
-              <label htmlFor='email' value='email'>
-                E-Mail:
-                <input
-                  type='email'
-                  name='email'
-                  value={this.state.email}
-                  onChange={this.onChange}
-                  placeholder='Enter your email'
-                />
-              </label>
-            </div>
-            <div>
-              <label htmlFor='password' value='password'>
-                Password:
-                <input
-                  type='password'
-                  name='password'
-                  id='password'
-                  placeholder='Enter your password'
-                  value={this.state.password}
-                  onChange={this.onChange}
-                />
-              </label>
-            </div>
-            <div>
-              <input type='submit' value='Sign up' />
-            </div>
-          </form>
-        </div>
+        <Form display='block' onSubmit={this.onSubmit}>
+          <Form.Group as={Row} controlId='formPlaintextPassword'>
+            <Col>
+              <Form.Control
+                size='lg'
+                type='text'
+                name='name'
+                value={this.state.name}
+                onChange={this.onChange}
+                placeholder='Enter your name'
+              />
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row} controlId='formPlaintextPassword'>
+            <Col>
+              <Form.Control
+                size='lg'
+                type='email'
+                name='email'
+                value={this.state.email}
+                onChange={this.onChange}
+                placeholder='example@email.com'
+              />
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row} controlId='formPlaintextPassword'>
+            <Col>
+              <Form.Control
+                size='lg'
+                type='password'
+                name='password'
+                id='password'
+                placeholder='Enter your password'
+                value={this.state.password}
+                onChange={this.onChange}
+              />
+            </Col>
+          </Form.Group>
+          <Form.Group>
+            <Button type='submit' variant='outline-primary'>
+              Login
+            </Button>
+          </Form.Group>
+        </Form>
       </div>
     )
   }
