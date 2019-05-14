@@ -60,35 +60,48 @@ class AppNavbar extends Component {
           </Nav>
           <Nav className='justify-content-end'>
             {this.state.userLoggedIn ? (
-              <Nav.Item>
-                <Nav.Link variant='outline-linfo'>
-                  {/* TODO: Move style to css file */}
-                  <Link
-                    to='/'
-                    onClick={this.handleLogout}
-                    style={{ textDecoration: 'none', color: '#9A9DA0' }}>
-                    Log out
-                  </Link>
-                </Nav.Link>
-              </Nav.Item>
+              <React.Fragment>
+                <Nav.Item>
+                  <Nav.Link variant='outline-linfo'>
+                    {/* TODO: Move style to css file */}
+                    <Link
+                      to='/'
+                      onClick={this.handleLogout}
+                      style={{ textDecoration: 'none', color: '#9A9DA0' }}
+                    >
+                      Log out
+                    </Link>
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link variant='outline-info'>
+                    {/* TODO: Move style to css file */}
+                    <Link to='/Settings' style={{ textDecoration: 'none', color: '#9A9DA0' }}>
+                      Settings
+                    </Link>
+                  </Nav.Link>
+                </Nav.Item>
+              </React.Fragment>
             ) : (
-              <Nav.Item>
-                <Nav.Link variant='outline-linfo'>
-                  {/* TODO: Move style to css file */}
-                  <Link to='/login' style={{ textDecoration: 'none', color: '#9A9DA0' }}>
-                    Log in
-                  </Link>
-                </Nav.Link>
-              </Nav.Item>
+              <React.Fragment>
+                <Nav.Item>
+                  <Nav.Link variant='outline-linfo'>
+                    {/* TODO: Move style to css file */}
+                    <Link to='/login' style={{ textDecoration: 'none', color: '#9A9DA0' }}>
+                      Log in
+                    </Link>
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link variant='outline-info'>
+                    {/* TODO: Move style to css file */}
+                    <Link to='/sign-up' style={{ textDecoration: 'none', color: '#9A9DA0' }}>
+                      Sign up
+                    </Link>
+                  </Nav.Link>
+                </Nav.Item>
+              </React.Fragment>
             )}
-            <Nav.Item>
-              <Nav.Link variant='outline-info'>
-                {/* TODO: Move style to css file */}
-                <Link to='/sign-up' style={{ textDecoration: 'none', color: '#9A9DA0' }}>
-                  Sign up
-                </Link>
-              </Nav.Link>
-            </Nav.Item>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
