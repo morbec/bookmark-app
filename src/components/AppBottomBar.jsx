@@ -2,8 +2,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unused-state */
 import React, { Component } from 'react'
-// import { Link } from 'react-router-dom'
-// import Button from 'react-bootstrap/Button'
 import FormControl from 'react-bootstrap/FormControl'
 import Form from 'react-bootstrap/Form'
 import Nav from 'react-bootstrap/Nav'
@@ -56,9 +54,6 @@ class AppBottomBar extends Component {
                   placeholder='https://...'
                   className='mr-sm-2'
                 />
-                {/* <Button variant='outline-info' type='submit'>
-                  Add new bookmark
-                </Button> */}
               </Form>
             </Nav.Item>
           </Nav>
