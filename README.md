@@ -1,4 +1,4 @@
 # Bookmark App
-Store your bookmarks online
+Save your bookmarks online
 
 
