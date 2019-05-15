@@ -3,7 +3,7 @@
 /* eslint-disable react/no-unused-state */
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import Button from 'react-bootstrap/Button'
+// import Button from 'react-bootstrap/Button'
 import FormControl from 'react-bootstrap/FormControl'
 import Form from 'react-bootstrap/Form'
 import Nav from 'react-bootstrap/Nav'
@@ -54,7 +54,9 @@ class AppNavbar extends Component {
             <Nav.Item>
               <Form inline>
                 <FormControl type='text' placeholder='Search...' className='mr-sm-2' />
-                <Button type='submit'>Search</Button>
+                {/* <Button variant='outline-info' type='submit'> */}
+                {/* Search */}
+                {/* </Button> */}
               </Form>
             </Nav.Item>
           </Nav>
@@ -62,9 +64,10 @@ class AppNavbar extends Component {
             {this.state.userLoggedIn ? (
               <React.Fragment>
                 <Nav.Item>
-                  <Nav.Link variant='outline-linfo'>
+                  <Nav.Link variant='outline-info'>
                     {/* TODO: Move style to css file */}
                     <Link
+                      variant='outline-info'
                       to='/'
                       onClick={this.handleLogout}
                       style={{ textDecoration: 'none', color: '#9A9DA0' }}
