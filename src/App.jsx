@@ -4,6 +4,7 @@ import { Router, Switch, Route } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
 
 import AppNavbar from './components/AppNavbar'
+import AppBottomBar from './components/AppBottomBar'
 import SignUp from './components/Auth/SignUp'
 import Login from './components/Auth/Login'
 import { loggedIn } from './services/auth'
@@ -44,6 +45,7 @@ class App extends Component {
             <Route exact path='/sign-up' render={() => <SignUp setUser={this.setUser} />} />
             <Route exact path='/login' render={() => <Login setUser={this.setUser} />} />
           </Switch>
+          <AppBottomBar userLoggedIn={this.state.userLoggedIn} />
         </Router>
       </div>
     )
