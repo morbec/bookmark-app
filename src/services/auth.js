@@ -17,8 +17,12 @@ const signup = (name, email, password) => {
 const login = (email, password) => {
   return service
     .post('/auth/login', { email, password })
-    .then((response) => response.data)
-    .catch((err) => err)
+    .then((response) => {
+      return response.data
+    })
+    .catch((err) => {
+      return Promise.reject(`${err}`)
+    })
 }
 
 const logout = () => {

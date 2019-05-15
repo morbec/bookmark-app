@@ -24,13 +24,17 @@ class Login extends Component {
   onSubmit = (event) => {
     event.preventDefault()
     const { email, password } = this.state
-    login(email, password).then((user) => {
-      this.props.setUser(user)
-      this.setState({
-        email: '',
-        password: '',
+    login(email, password)
+      .then((user) => {
+        this.props.setUser(user)
+        this.setState({
+          email: '',
+          password: '',
+        })
       })
-    })
+      .catch(() => {
+        this.props.setUser(null)
+      })
   }
 
   render() {
