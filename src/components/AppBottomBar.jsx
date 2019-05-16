@@ -32,7 +32,9 @@ class AppBottomBar extends Component {
   handleSubmit = (event) => {
     event.preventDefault()
     // const { bookmarkURL, userLoggedIn } = this.state
+
     const { bookmarkURL } = this.state
+
     addBookmark('', bookmarkURL).then((res) => res).catch((error) => error)
     this.setState({
       bookmarkURL: '',

@@ -27,12 +27,10 @@ class Login extends Component {
     login(email, password)
       .then((user) => {
         this.props.setUser(user)
-        this.setState({
-          email: '',
-          password: '',
-        })
+        this.props.history.push('/bookmarks')
       })
       .catch(() => {
+        // TODO: Handle .catch -> Display a  message to the user
         this.props.setUser(null)
       })
   }

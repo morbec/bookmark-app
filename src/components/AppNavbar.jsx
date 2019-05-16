@@ -8,7 +8,7 @@ import FormControl from 'react-bootstrap/FormControl'
 import Form from 'react-bootstrap/Form'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
-import NavDropdown from 'react-bootstrap/NavDropdown'
+// import NavDropdown from 'react-bootstrap/NavDropdown'
 
 import { logout } from '../services/auth'
 
@@ -37,18 +37,18 @@ class AppNavbar extends Component {
       <Navbar sticky='top' variant='dark' bg='dark' expand='lg'>
         <Navbar.Brand>
           {/* TODO: Move style to css file */}
-          <Link to='/' style={{ textDecoration: 'none', color: '#9A9DA0' }}>
+          <Link to='/bookmarks' style={{ textDecoration: 'none', color: '#9A9DA0' }}>
             Bookmarks
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='justify-content-start mr-auto'>
-            <NavDropdown hidden={!this.state.userLoggedIn} title='Add' id='basic-nav-dropdown'>
+            {/* <NavDropdown hidden={!this.state.userLoggedIn} title='Add' id='basic-nav-dropdown'>
               <NavDropdown.Item href='#'>New link</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href='#'>New tag</NavDropdown.Item>
-            </NavDropdown>
+            </NavDropdown> */}
           </Nav>
           <Nav hidden={!this.state.userLoggedIn} className='justify-content-center'>
             <Nav.Item>
