@@ -31,7 +31,7 @@ class BookmarksList extends Component {
           bookmarksList: response.data,
         })
       })
-      .catch((e) =>  e))
+      .catch((e) => e)
   }
 
   render() {
