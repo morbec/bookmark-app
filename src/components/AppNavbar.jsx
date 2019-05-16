@@ -52,7 +52,7 @@ class AppNavbar extends Component {
           <Nav hidden={!this.state.userLoggedIn} className='justify-content-center'>
             <Nav.Item>
               <Form inline>
-                <FormControl type='text' placeholder='Search...' className='mr-sm-2' />
+                <FormControl type='text' disabled placeholder='Search...' className='mr-sm-2' />
               </Form>
             </Nav.Item>
           </Nav>
@@ -66,8 +66,7 @@ class AppNavbar extends Component {
                       variant='outline-info'
                       to='/'
                       onClick={this.handleLogout}
-                      style={{ textDecoration: 'none', color: '#9A9DA0' }}
-                    >
+                      style={{ textDecoration: 'none', color: '#9A9DA0' }}>
                       Log out
                     </Link>
                   </Nav.Link>
@@ -75,7 +74,7 @@ class AppNavbar extends Component {
                 <Nav.Item>
                   <Nav.Link variant='outline-info'>
                     {/* TODO: Move style to css file */}
-                    <Link to='/Settings' style={{ textDecoration: 'none', color: '#9A9DA0' }}>
+                    <Link to='/Settings' disabled style={{ textDecoration: 'none', color: '#9A9DA0' }}>
                       Settings
                     </Link>
                   </Nav.Link>
