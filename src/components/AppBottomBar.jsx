@@ -8,7 +8,7 @@ import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import Tooltip from 'react-bootstrap/Tooltip'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
-import { addBookmark } from '../services/bookmark'
+import { addBookmark, scrape } from '../services/bookmark'
 
 class AppBottomBar extends Component {
   state = {
@@ -33,13 +33,16 @@ class AppBottomBar extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    // const { bookmarkURL, userLoggedIn } = this.state
 
-    const { bookmarkURL } = this.state
-
-    addBookmark('', bookmarkURL).then((res) => res).catch((error) => error)
-    this.setState({
-      bookmarkURL: '',
+    let { bookmarkURL } = this.state
+    if (!bookmarkURL.startsWith('http')) {
+      bookmarkURL = 'https://' + bookmarkURL
+    }
+    scrape(bookmarkURL).then((title) => {
+      addBookmark(title, bookmarkURL).then((res) => res).catch((error) => error)
+      this.setState({
+        bookmarkURL: '',
+      })
     })
   }
 
@@ -51,8 +54,7 @@ class AppBottomBar extends Component {
             <Nav.Item>
               <OverlayTrigger
                 placement='top'
-                overlay={<Tooltip id='addNewBookmark'> Add new bookmark </Tooltip>}
-              >
+                overlay={<Tooltip id='addNewBookmark'> Add new bookmark </Tooltip>}>
                 <Form inline onSubmit={this.handleSubmit}>
                   <FormControl
                     name='bookmarkURL'

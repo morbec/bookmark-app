@@ -17,7 +17,6 @@ class BookmarksList extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('prevProps', prevProps)
     if (prevProps !== this.props) {
       this.setState({ userLoggedIn: this.props.userLoggedIn })
       this.getBookmarks()
@@ -32,7 +31,7 @@ class BookmarksList extends Component {
           bookmarksList: response.data,
         })
       })
-      .catch((e) => console.log('** error **', e))
+      .catch((e) => e)
   }
 
   render() {
