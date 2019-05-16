@@ -6,6 +6,8 @@ import FormControl from 'react-bootstrap/FormControl'
 import Form from 'react-bootstrap/Form'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
+import Tooltip from 'react-bootstrap/Tooltip'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import { addBookmark } from '../services/bookmark'
 
 class AppBottomBar extends Component {
@@ -32,7 +34,9 @@ class AppBottomBar extends Component {
   handleSubmit = (event) => {
     event.preventDefault()
     // const { bookmarkURL, userLoggedIn } = this.state
+
     const { bookmarkURL } = this.state
+
     addBookmark('', bookmarkURL).then((res) => res).catch((error) => error)
     this.setState({
       bookmarkURL: '',
@@ -45,16 +49,21 @@ class AppBottomBar extends Component {
         <Navbar.Collapse>
           <Nav className='justify-content-center'>
             <Nav.Item>
-              <Form inline onSubmit={this.handleSubmit}>
-                <FormControl
-                  name='bookmarkURL'
-                  value={this.state.bookmarkURL}
-                  type='text'
-                  onChange={this.handleChange}
-                  placeholder='https://...'
-                  className='mr-sm-2'
-                />
-              </Form>
+              <OverlayTrigger
+                placement='top'
+                overlay={<Tooltip id='addNewBookmark'> Add new bookmark </Tooltip>}
+              >
+                <Form inline onSubmit={this.handleSubmit}>
+                  <FormControl
+                    name='bookmarkURL'
+                    value={this.state.bookmarkURL}
+                    type='text'
+                    onChange={this.handleChange}
+                    placeholder='https://...'
+                    className='mr-sm-2'
+                  />
+                </Form>
+              </OverlayTrigger>
             </Nav.Item>
           </Nav>
         </Navbar.Collapse>

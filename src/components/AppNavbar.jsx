@@ -3,12 +3,10 @@
 /* eslint-disable react/no-unused-state */
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-// import Button from 'react-bootstrap/Button'
-import FormControl from 'react-bootstrap/FormControl'
 import Form from 'react-bootstrap/Form'
+import FormControl from 'react-bootstrap/FormControl'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
-import NavDropdown from 'react-bootstrap/NavDropdown'
 
 import { logout } from '../services/auth'
 
@@ -37,26 +35,24 @@ class AppNavbar extends Component {
       <Navbar sticky='top' variant='dark' bg='dark' expand='lg'>
         <Navbar.Brand>
           {/* TODO: Move style to css file */}
-          <Link to='/' style={{ textDecoration: 'none', color: '#9A9DA0' }}>
+          <Link to='/bookmarks' style={{ textDecoration: 'none', color: '#9A9DA0' }}>
             Bookmarks
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='justify-content-start mr-auto'>
-            <NavDropdown hidden={!this.state.userLoggedIn} title='Add' id='basic-nav-dropdown'>
+            {/* Disable dropdown menus for now, I'll back to it later */}
+            {/* <NavDropdown hidden={!this.state.userLoggedIn} title='Add' id='basic-nav-dropdown'>
               <NavDropdown.Item href='#'>New link</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href='#'>New tag</NavDropdown.Item>
-            </NavDropdown>
+            </NavDropdown> */}
           </Nav>
           <Nav hidden={!this.state.userLoggedIn} className='justify-content-center'>
             <Nav.Item>
               <Form inline>
-                <FormControl type='text' placeholder='Search...' className='mr-sm-2' />
-                {/* <Button variant='outline-info' type='submit'> */}
-                {/* Search */}
-                {/* </Button> */}
+                <FormControl type='text' disabled placeholder='Search...' className='mr-sm-2' />
               </Form>
             </Nav.Item>
           </Nav>
@@ -70,8 +66,7 @@ class AppNavbar extends Component {
                       variant='outline-info'
                       to='/'
                       onClick={this.handleLogout}
-                      style={{ textDecoration: 'none', color: '#9A9DA0' }}
-                    >
+                      style={{ textDecoration: 'none', color: '#9A9DA0' }}>
                       Log out
                     </Link>
                   </Nav.Link>
@@ -79,7 +74,7 @@ class AppNavbar extends Component {
                 <Nav.Item>
                   <Nav.Link variant='outline-info'>
                     {/* TODO: Move style to css file */}
-                    <Link to='/Settings' style={{ textDecoration: 'none', color: '#9A9DA0' }}>
+                    <Link to='/Settings' disabled style={{ textDecoration: 'none', color: '#9A9DA0' }}>
                       Settings
                     </Link>
                   </Nav.Link>
