@@ -1,0 +1,51 @@
+body {
+  line-height: 1.7;
+}
+.left-box {
+  padding-left: 10px;
+  padding-right: 250px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  line-height: 1.7;
+  font-size: 2.5rem;
+  letter-spacing: 2px;
+  font-weight: 500;
+  color: #333;
+}
+
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(3rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+@keyframes moveOutBottom {
+  0% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(10rem);
+  }
+}
+
+.anim-left {
+  backface-visibility: hidden;
+  animation-name: moveInBottom;
+  animation-duration: 2s;
+  animation-timing-function: ease-out;
+}
+
+.anim-bottom {
+  backface-visibility: hidden;
+  animation: moveInBottom;
+  animation-duration: 2s;
+  animation-timing-function: ease-out;
+  /* animation-delay: 6s; */
+}

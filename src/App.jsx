@@ -13,6 +13,7 @@ import BookmarksList from './components/Bookmarks/BookmarksList'
 // import ProtectedRoute from './components/ProtectRoute'
 
 import './App.css'
+import Home from './components/Home'
 
 const browserHistory = createBrowserHistory()
 
@@ -57,16 +58,10 @@ class App extends Component {
               path='/bookmarks'
               render={(props) => <BookmarksList {...props} userLoggedIn={this.state.userLoggedIn} />}
             />
-
-            {/* <ProtectedRoute
-              component={BookmarksList}
-              exact={true}
-              user={this.state.userLoggedIn}
-              path='/bookmarks'
-            /> */}
           </Switch>
           <AppBottomBar saveUrl={this.saveUrl} userLoggedIn={this.state.userLoggedIn} />
         </Router>
+        <Home />
       </div>
     )
   }
