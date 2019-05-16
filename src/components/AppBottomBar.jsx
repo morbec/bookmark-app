@@ -39,10 +39,21 @@ class AppBottomBar extends Component {
       bookmarkURL = 'https://' + bookmarkURL
     }
     scrape(bookmarkURL).then((title) => {
-      addBookmark(title, bookmarkURL).then((res) => res).catch((error) => error)
-      this.setState({
-        bookmarkURL: '',
-      })
+      addBookmark(title, bookmarkURL)
+        .then(() => {
+          this.props.saveUrl({
+            title,
+            bookmarkURL,
+          })
+          this.setState({
+            bookmarkURL: '',
+          })
+        })
+        .catch(() => {
+          this.setState({
+            bookmarkURL: 'Something went wrong...',
+          })
+        })
     })
   }
 
@@ -54,7 +65,8 @@ class AppBottomBar extends Component {
             <Nav.Item>
               <OverlayTrigger
                 placement='top'
-                overlay={<Tooltip id='addNewBookmark'> Add new bookmark </Tooltip>}>
+                overlay={<Tooltip id='addNewBookmark'> Add new bookmark </Tooltip>}
+              >
                 <Form inline onSubmit={this.handleSubmit}>
                   <FormControl
                     name='bookmarkURL'
