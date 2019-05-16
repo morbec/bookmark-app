@@ -19,6 +19,7 @@ const browserHistory = createBrowserHistory()
 class App extends Component {
   state = {
     userLoggedIn: null,
+    bookmark: null,
   }
 
   componentDidMount() {
@@ -37,6 +38,10 @@ class App extends Component {
         userLoggedIn: user,
       })
     })
+  }
+
+  saveUrl = (bookmark) => {
+    this.setState({ bookmark })
   }
 
   render() {
@@ -60,7 +65,7 @@ class App extends Component {
               path='/bookmarks'
             /> */}
           </Switch>
-          <AppBottomBar userLoggedIn={this.state.userLoggedIn} />
+          <AppBottomBar saveUrl={this.saveUrl} userLoggedIn={this.state.userLoggedIn} />
         </Router>
       </div>
     )
