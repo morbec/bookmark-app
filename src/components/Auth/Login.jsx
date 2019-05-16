@@ -37,7 +37,7 @@ class Login extends Component {
 
   render() {
     return (
-      <div className='container'>
+      <div className='container' style={{ zIndex: 2 }}>
         <Form display='block' onSubmit={this.onSubmit}>
           <Form.Group as={Row} controlId='formPlaintextEmail'>
             <Col>

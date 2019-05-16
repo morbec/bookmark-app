@@ -12,7 +12,7 @@ import { loggedIn } from './services/auth'
 import BookmarksList from './components/Bookmarks/BookmarksList'
 // import ProtectedRoute from './components/ProtectRoute'
 
-// import './App.css'
+import './App.css'
 
 const browserHistory = createBrowserHistory()
 
