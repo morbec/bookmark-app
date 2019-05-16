@@ -4,26 +4,20 @@
 import React, { Component } from 'react'
 import Alert from 'react-bootstrap/Alert'
 import ListGroup from 'react-bootstrap/ListGroup'
-// import { Link } from "react-router-dom";
 import axios from 'axios'
-// import { bookmarks } from '../../services/bookmark'
 
 class BookmarksList extends Component {
   state = {
-    bookmarksList: null,
+    bookmarksList: [],
     userLoggedIn: this.props.userLoggedIn,
   }
 
-  service = axios.create({
-    baseURL: process.env.REACT_APP_SERVER_API_URL,
-    withCredentials: true,
-  })
-
   componentDidMount() {
-    if (this.props.userLoggedIn) this.getBookmarks()
+    this.getBookmarks()
   }
 
   componentDidUpdate(prevProps, prevState) {
+    console.log('prevProps', prevProps)
     if (prevProps !== this.props) {
       this.setState({ userLoggedIn: this.props.userLoggedIn })
       this.getBookmarks()
@@ -31,11 +25,9 @@ class BookmarksList extends Component {
   }
 
   getBookmarks = () => {
-    console.log('.... get bookmarks ....')
-    this.service
-      .get('/bookmark', { withCredentials: true })
+    axios
+      .get(`${process.env.REACT_APP_SERVER_API_URL}/bookmark`, { withCredentials: true })
       .then((response) => {
-        console.log('response data --> ', response.data)
         this.setState({
           bookmarksList: response.data,
         })
@@ -44,20 +36,17 @@ class BookmarksList extends Component {
   }
 
   render() {
-    console.log('render......')
-    console.log('state => ', this.state)
     return (
-      <div>
+      <React.Fragment>
         {this.state.userLoggedIn ? (
           <React.Fragment>
-            <ListGroup>
+            <ListGroup variant='flush'>
               {this.state.bookmarksList.map((lnk, idx) => (
-                <ListGroup.Item action href={lnk}>
-                  {lnk}
+                <ListGroup.Item key={idx} as='a' target='_blank' href={lnk.url}>
+                  {lnk.url}
                 </ListGroup.Item>
               ))}
             </ListGroup>
-            <h2>bookmarks</h2>
           </React.Fragment>
         ) : (
           <React.Fragment>
@@ -69,7 +58,7 @@ class BookmarksList extends Component {
             </Alert>
           </React.Fragment>
         )}
-      </div>
+      </React.Fragment>
     )
   }
 }

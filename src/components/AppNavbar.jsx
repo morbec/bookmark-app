@@ -3,12 +3,10 @@
 /* eslint-disable react/no-unused-state */
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-// import Button from 'react-bootstrap/Button'
-import FormControl from 'react-bootstrap/FormControl'
 import Form from 'react-bootstrap/Form'
+import FormControl from 'react-bootstrap/FormControl'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
-// import NavDropdown from 'react-bootstrap/NavDropdown'
 
 import { logout } from '../services/auth'
 
@@ -44,6 +42,7 @@ class AppNavbar extends Component {
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='justify-content-start mr-auto'>
+            {/* Disable dropdown menus for now, I'll back to it later */}
             {/* <NavDropdown hidden={!this.state.userLoggedIn} title='Add' id='basic-nav-dropdown'>
               <NavDropdown.Item href='#'>New link</NavDropdown.Item>
               <NavDropdown.Divider />
@@ -54,9 +53,6 @@ class AppNavbar extends Component {
             <Nav.Item>
               <Form inline>
                 <FormControl type='text' placeholder='Search...' className='mr-sm-2' />
-                {/* <Button variant='outline-info' type='submit'> */}
-                {/* Search */}
-                {/* </Button> */}
               </Form>
             </Nav.Item>
           </Nav>
