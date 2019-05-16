@@ -51,6 +51,7 @@ class App extends Component {
         <Router history={browserHistory}>
           <AppNavbar setUser={this.setUser} userLoggedIn={this.state.userLoggedIn} />
           <Switch>
+            <Route exact path='/' component={Home} />
             <Route exact path='/sign-up' render={(props) => <SignUp {...props} setUser={this.setUser} />} />
             <Route exact path='/login' render={(props) => <Login {...props} setUser={this.setUser} />} />
             <Route
@@ -61,7 +62,6 @@ class App extends Component {
           </Switch>
           <AppBottomBar saveUrl={this.saveUrl} userLoggedIn={this.state.userLoggedIn} />
         </Router>
-        <Home />
       </div>
     )
   }
