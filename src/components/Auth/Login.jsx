@@ -44,14 +44,7 @@ const BALogin = (props) => {
       <Form display='block' onSubmit={onSubmit}>
         <Form.Group as={Row} controlId='formPlaintextEmail'>
           <Col>
-            <Form.Control
-              size='lg'
-              type='email'
-              name='email'
-              placeholder='example@email.com'
-              onChange={email.onChange}
-              value={email.value}
-            />
+            <Form.Control size='lg' type='email' name='email' placeholder='example@email.com' {...email} />
           </Col>
         </Form.Group>
         <Form.Group as={Row} controlId='formPlaintextPassword'>
@@ -61,8 +54,7 @@ const BALogin = (props) => {
               type='password'
               name='password'
               placeholder='Enter your password'
-              onChange={password.onChange}
-              value={password.value}
+              {...password}
             />
           </Col>
         </Form.Group>
