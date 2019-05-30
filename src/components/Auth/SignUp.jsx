@@ -12,13 +12,13 @@ class SignUp extends Component {
   state = {
     email: '',
     password: '',
-    name: '',
+    name: ''
   }
 
   onChange = (event) => {
     const { name, value } = event.target
     this.setState({
-      [name]: value,
+      [name]: value
     })
   }
 
@@ -70,7 +70,6 @@ class SignUp extends Component {
                 size='lg'
                 type='password'
                 name='password'
-                id='password'
                 placeholder='Enter your password'
                 value={this.state.password}
                 onChange={this.onChange}

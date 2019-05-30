@@ -7,7 +7,7 @@ import { createBrowserHistory } from 'history'
 import AppNavbar from './components/AppNavbar'
 import AppBottomBar from './components/AppBottomBar'
 import SignUp from './components/Auth/SignUp'
-import Login from './components/Auth/Login'
+import { BALogin } from './components/Auth/Login'
 import { loggedIn } from './services/auth'
 import BookmarksList from './components/Bookmarks/BookmarksList'
 // import ProtectedRoute from './components/ProtectRoute'
@@ -20,7 +20,7 @@ const browserHistory = createBrowserHistory()
 class App extends Component {
   state = {
     userLoggedIn: null,
-    bookmark: null,
+    bookmark: null
   }
 
   componentDidMount() {
@@ -29,14 +29,14 @@ class App extends Component {
 
   setUser = (user) => {
     this.setState({
-      userLoggedIn: user,
+      userLoggedIn: user
     })
   }
 
   getUser = () => {
     loggedIn().then((user) => {
       this.setState({
-        userLoggedIn: user,
+        userLoggedIn: user
       })
     })
   }
@@ -53,7 +53,7 @@ class App extends Component {
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/sign-up' render={(props) => <SignUp {...props} setUser={this.setUser} />} />
-            <Route exact path='/login' render={(props) => <Login {...props} setUser={this.setUser} />} />
+            <Route exact path='/login' render={(props) => <BALogin {...props} setUser={this.setUser} />} />
             <Route
               exact
               path='/bookmarks'
