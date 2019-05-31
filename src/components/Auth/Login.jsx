@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
-// import React, { Component, useState, useContext } from 'react'
-import React, { Component, useState } from 'react'
+import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
@@ -9,6 +8,7 @@ import { login } from '../../services/auth'
 
 import '../../assets/auth/auth.css'
 
+// TODO: Move this to a proper file
 const useFormInput = (initialValue) => {
   const [ value, setValue ] = useState(initialValue)
 
@@ -22,7 +22,7 @@ const useFormInput = (initialValue) => {
   }
 }
 
-const BALogin = (props) => {
+const Login = (props) => {
   const email = useFormInput('')
   const password = useFormInput('')
 
@@ -67,70 +67,5 @@ const BALogin = (props) => {
     </div>
   )
 }
-class Login extends Component {
-  state = {
-    email: '',
-    password: ''
-  }
 
-  onChange = (event) => {
-    const { name, value } = event.target
-    this.setState({
-      [name]: value
-    })
-  }
-
-  onSubmit = (event) => {
-    event.preventDefault()
-    const { email, password } = this.state
-    login(email, password)
-      .then((user) => {
-        this.props.setUser(user)
-        this.props.history.push('/bookmarks')
-      })
-      .catch(() => {
-        // TODO: Handle .catch -> Display a  message to the user
-        this.props.setUser(null)
-      })
-  }
-
-  render() {
-    return (
-      <div className='container'>
-        <Form display='block' onSubmit={this.onSubmit}>
-          <Form.Group as={Row} controlId='formPlaintextEmail'>
-            <Col>
-              <Form.Control
-                size='lg'
-                type='email'
-                name='email'
-                placeholder='example@email.com'
-                onChange={this.onChange}
-                value={this.state.email}
-              />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} controlId='formPlaintextPassword'>
-            <Col>
-              <Form.Control
-                size='lg'
-                type='password'
-                name='password'
-                placeholder='Enter your password'
-                onChange={this.onChange}
-                value={this.state.password}
-              />
-            </Col>
-          </Form.Group>
-          <Form.Group>
-            <Button type='submit' variant='outline-primary'>
-              Login
-            </Button>
-          </Form.Group>
-        </Form>
-      </div>
-    )
-  }
-}
-
-export { Login, BALogin }
+export { useFormInput, Login as BALogin }
