@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-boolean-value */
 /* eslint-disable react/no-unused-state */
-import React, { Component, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Router, Switch, Route } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
 
@@ -19,6 +19,7 @@ const browserHistory = createBrowserHistory()
 
 const App = () => {
   const [ userLoggedIn, setUserLoggedIn ] = useState(null)
+  // eslint-disable-next-line no-unused-vars
   const [ bookmark, setBookmark ] = useState(null)
 
   const getUser = () => {
