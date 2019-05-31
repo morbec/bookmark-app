@@ -78,7 +78,7 @@ class SignUp extends Component {
           </Form.Group>
           <Form.Group>
             <Button type='submit' variant='outline-primary'>
-              Login
+              Sign up
             </Button>
           </Form.Group>
         </Form>
