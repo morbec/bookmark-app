@@ -34,7 +34,8 @@ const App = () => {
 
   const setUser = (user) => setLoggedInUser(user)
 
-  const [ bookmark, setBookmark ] = useState(null)
+  // update the list of bookmarks after a new bookmark is successfully added to the database
+  const [ , setBookmark ] = useState(null)
   const saveNewBookmark = (newBookmark) => {
     setBookmark(newBookmark)
   }
