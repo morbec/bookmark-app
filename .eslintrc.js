@@ -28,6 +28,7 @@ module.exports = {
     'eslint.alwaysShowStatus': true,
     'react/jsx-uses-react': 'error',
     'react/jsx-uses-vars': 'error',
+    'react/prop-types': [ 0, {} ],
     'constructor-super': 'warn',
     'no-this-before-super': 'warn',
     'jsx-a11y/label-has-associated-control': [
