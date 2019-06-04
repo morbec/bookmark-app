@@ -68,4 +68,4 @@ const Login = (props) => {
   )
 }
 
-export { useFormInput, Login as BALogin }
+export { useFormInput, Login }
