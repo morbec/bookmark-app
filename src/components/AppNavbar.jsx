@@ -12,13 +12,13 @@ import { logout } from '../services/auth'
 
 class AppNavbar extends Component {
   state = {
-    userLoggedIn: this.props.userLoggedIn,
+    userLoggedIn: this.props.userLoggedIn
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.userLoggedIn !== prevProps.userLoggedIn) {
       this.setState({
-        userLoggedIn: this.props.userLoggedIn,
+        userLoggedIn: this.props.userLoggedIn
       })
     }
   }
@@ -66,7 +66,8 @@ class AppNavbar extends Component {
                       variant='outline-info'
                       to='/'
                       onClick={this.handleLogout}
-                      style={{ textDecoration: 'none', color: '#9A9DA0' }}>
+                      style={{ textDecoration: 'none', color: '#9A9DA0' }}
+                    >
                       Log out
                     </Link>
                   </Nav.Link>
