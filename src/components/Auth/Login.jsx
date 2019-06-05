@@ -42,7 +42,8 @@ const Login = (props) => {
         setLoginError(true)
         switch (error) {
           case 0:
-            setErrorMessage('Could not connect with the server, try again later. 🙁')
+            // setErrorMessage('Could not connect to server, try again later. 🙁')
+            setErrorMessage('Could not connect to server 🙁')
             break
           case 401:
             setErrorMessage('Incorrect username or password.')

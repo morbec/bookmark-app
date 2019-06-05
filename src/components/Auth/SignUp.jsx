@@ -29,7 +29,7 @@ const SignUp = (props) => {
         setSignUpError(true)
         switch (error) {
           case 0:
-            setErrorMessage('Could not connect with the server, try again later. 🙁')
+            setErrorMessage('Could not connect to server 🙁')
             break
           case 409:
             setErrorMessage('The email already exists')
