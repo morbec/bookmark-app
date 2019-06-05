@@ -29,7 +29,10 @@ const login = (email, password) => {
 
 // TODO: Return a rejected Promise in the catch
 const logout = () => {
-  return service.post('/auth/logout').then((response) => response.data).catch((err) => err)
+  return service
+    .post('/auth/logout')
+    .then((response) => response.data)
+    .catch((error) => Promise.reject(error))
 }
 
 const loggedIn = () => {
