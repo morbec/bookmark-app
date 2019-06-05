@@ -11,7 +11,9 @@ const signup = (name, email, password) => {
     .then((response) => {
       return response.data
     })
-    .catch((err) => err)
+    .catch((error) => {
+      return Promise.reject(error.request.status)
+    })
 }
 
 const login = (email, password) => {
@@ -25,6 +27,7 @@ const login = (email, password) => {
     })
 }
 
+// TODO: Return a rejected Promise in the catch
 const logout = () => {
   return service.post('/auth/logout').then((response) => response.data).catch((err) => err)
 }

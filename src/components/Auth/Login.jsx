@@ -55,9 +55,7 @@ const Login = (props) => {
       })
   }
 
-  const handleDismiss = (show) => {
-    setLoginError(show)
-  }
+  const handleDismiss = (show) => setLoginError(show)
 
   return (
     <div className='container'>
