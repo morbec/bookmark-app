@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const service = axios.create({
   baseURL: process.env.REACT_APP_SERVER_API_URL,
-  withCredentials: true,
+  withCredentials: true
 })
 
 const signup = (name, email, password) => {
@@ -20,8 +20,8 @@ const login = (email, password) => {
     .then((response) => {
       return response.data
     })
-    .catch((err) => {
-      return Promise.reject(`${err}`)
+    .catch((error) => {
+      return Promise.reject(error.request.status)
     })
 }
 
