@@ -2,11 +2,14 @@ import axios from 'axios'
 
 const service = axios.create({
   baseURL: process.env.REACT_APP_SERVER_API_URL,
-  withCredentials: true,
+  withCredentials: true
 })
 
-const addBookmark = (title, url) => {
-  return service.post('/bookmark', { title, url }).then((bookmark) => bookmark).catch((error) => error)
+const addBookmark = (title, url, tags) => {
+  return service
+    .post('/bookmark', { title, url, tags })
+    .then((response) => response.data)
+    .catch((error) => error)
 }
 
 const bookmarks = () => {
