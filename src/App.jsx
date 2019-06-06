@@ -5,19 +5,16 @@ import { Router, Switch, Route } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
 
 import AppNavbar from './components/AppNavbar'
-import AppBottomBar from './components/AppBottomBar'
 import SignUp from './components/Auth/SignUp'
 import { Login } from './components/Auth/Login'
 import { loggedIn } from './services/auth'
 import BookmarksList from './components/Bookmarks/BookmarksList'
-// import ProtectedRoute from './components/ProtectRoute'
+import Home from './components/Home'
 
 import './App.css'
-import Home from './components/Home'
 
 const browserHistory = createBrowserHistory()
 
-// TODO: Use Context...
 const App = () => {
   const [ loggedInUser, setLoggedInUser ] = useState(null)
 
@@ -35,6 +32,7 @@ const App = () => {
   const setUser = (user) => setLoggedInUser(user)
 
   // update the list of bookmarks after a new bookmark is successfully added to the database
+  // So far, I don't need to manage bookmark state itself
   const [ , setBookmark ] = useState(null)
   const saveNewBookmark = (newBookmark) => {
     setBookmark(newBookmark)
@@ -43,7 +41,7 @@ const App = () => {
   return (
     <div className='App'>
       <Router history={browserHistory}>
-        <AppNavbar setUser={setUser} userLoggedIn={loggedInUser} />
+        <AppNavbar saveUrl={saveNewBookmark} setUser={setUser} userLoggedIn={loggedInUser} />
         <Switch>
           <Route exact path='/' component={Home} />
           <Route exact path='/sign-up' render={(props) => <SignUp {...props} setUser={setUser} />} />
@@ -54,7 +52,6 @@ const App = () => {
             render={(props) => <BookmarksList {...props} userLoggedIn={loggedInUser} />}
           />
         </Switch>
-        <AppBottomBar saveUrl={saveNewBookmark} userLoggedIn={loggedInUser} />
       </Router>
     </div>
   )

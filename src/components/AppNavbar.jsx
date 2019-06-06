@@ -1,5 +1,4 @@
 /* eslint-disable react/no-did-update-set-state */
-/* eslint-disable react/prop-types */
 /* eslint-disable react/no-unused-state */
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
@@ -8,6 +7,7 @@ import FormControl from 'react-bootstrap/FormControl'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 
+import AddNewBookmark from './Bookmarks/Add'
 import { logout } from '../services/auth'
 
 class AppNavbar extends Component {
@@ -39,16 +39,13 @@ class AppNavbar extends Component {
             Bookmarks
           </Link>
         </Navbar.Brand>
+        <Navbar>
+          {this.state.userLoggedIn && (
+            <AddNewBookmark saveUrl={this.props.saveUrl} userLoggedIn={this.state.userLoggedIn} />
+          )}
+        </Navbar>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
-        <Navbar.Collapse id='basic-navbar-nav'>
-          <Nav className='justify-content-start mr-auto'>
-            {/* Disable dropdown menus for now, I'll back to it later */}
-            {/* <NavDropdown hidden={!this.state.userLoggedIn} title='Add' id='basic-nav-dropdown'>
-              <NavDropdown.Item href='#'>New link</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href='#'>New tag</NavDropdown.Item>
-            </NavDropdown> */}
-          </Nav>
+        <Navbar.Collapse className='justify-content-end' id='basic-navbar-nav'>
           <Nav hidden={!this.state.userLoggedIn} className='justify-content-center'>
             <Nav.Item>
               <Form inline>
