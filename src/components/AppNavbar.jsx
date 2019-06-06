@@ -7,8 +7,8 @@ import FormControl from 'react-bootstrap/FormControl'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 
-import { logout } from '../services/auth'
 import AddNewBookmark from './Bookmarks/Add'
+import { logout } from '../services/auth'
 
 class AppNavbar extends Component {
   state = {
