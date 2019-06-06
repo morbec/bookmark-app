@@ -54,7 +54,9 @@ const AddNewBookmark = (props) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Button onClick={() => setShowModal(true)}>Add</Button>
+      <Button variant='outline-secondary' onClick={() => setShowModal(true)}>
+        Add
+      </Button>
       <Modal centered show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header>
           <Modal.Title>Add new bookmark</Modal.Title>
