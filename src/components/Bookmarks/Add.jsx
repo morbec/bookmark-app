@@ -25,6 +25,7 @@ const FormControlElement = (props) => {
       placeholder={props.placeholder}
       // id={props.name}
       as='input'
+      focus={props.focus}
       aria-describedby={props.name}
       onChange={props.onChange}
     />
@@ -87,24 +88,27 @@ const AddNewBookmark = (props) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Button variant='outline-secondary' onClick={() => setShowModal(true)}>
-        Add
-      </Button>
-      <Modal centered show={showModal} onHide={() => setShowModal(false)}>
+      <ButtonElement
+        type='button'
+        variant='outline-secondary'
+        onClick={() => setShowModal(true)}
+        text='Add'
+      />
+      <Modal centered show={showModal} autoFocus onHide={() => setShowModal(false)}>
         <Modal.Header>
           <Modal.Title>Add new bookmark</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <InputGroupElement>
             <InputGroupPrependElement groupText='www' />
-            <FormControlElement name='url' placeholder='www.example.com' onChange={handleChange} />
+            <FormControlElement name='url' placeholder='www.example.com' focus onChange={handleChange} />
           </InputGroupElement>
           <label htmlFor='url'>Separate tags by , </label>
           <InputGroupElement>
             <InputGroupPrependElement groupText='Tags' />
-            <FormControlElement name='tags' placeholder='tag1, tag2,' onChange={handleChange} />
+            <FormControlElement name='tags' placeholder='tag1, tag2,' focus={false} onChange={handleChange} />
             <InputGroupPrependElement groupText='Title' />
-            <FormControlElement name='title' placeholder='Title' onChange={handleChange} />
+            <FormControlElement name='title' placeholder='Title' focus={false} onChange={handleChange} />
           </InputGroupElement>
         </Modal.Body>
         <Modal.Footer>
