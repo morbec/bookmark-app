@@ -6,6 +6,40 @@ import axios from 'axios'
 import { Button, Modal, InputGroup, FormControl } from 'react-bootstrap'
 import { addBookmark } from 'services/bookmark'
 
+const InputGroupElement = (props) => {
+  return <InputGroup className='mb-3'>{props.children}</InputGroup>
+}
+
+const InputGroupPrependElement = (props) => {
+  return (
+    <InputGroup.Prepend>
+      <InputGroup.Text>{props.groupText}</InputGroup.Text>
+    </InputGroup.Prepend>
+  )
+}
+
+const FormControlElement = (props) => {
+  return (
+    <FormControl
+      name={props.name}
+      placeholder={props.placeholder}
+      // id={props.name}
+      as='input'
+      focus={props.focus}
+      aria-describedby={props.name}
+      onChange={props.onChange}
+    />
+  )
+}
+
+const ButtonElement = (props) => {
+  return (
+    <Button type={props.type} variant={props.variant} onClick={props.onClick}>
+      {props.text}
+    </Button>
+  )
+}
+
 const AddNewBookmark = (props) => {
   const [ userLoggedIn, setUserLoggedIn ] = useState(props.userLoggedIn)
   const [ title, setTitle ] = useState('')
@@ -54,58 +88,32 @@ const AddNewBookmark = (props) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Button variant='outline-secondary' onClick={() => setShowModal(true)}>
-        Add
-      </Button>
-      <Modal centered show={showModal} onHide={() => setShowModal(false)}>
+      <ButtonElement
+        type='button'
+        variant='outline-secondary'
+        onClick={() => setShowModal(true)}
+        text='Add'
+      />
+      <Modal centered show={showModal} autoFocus onHide={() => setShowModal(false)}>
         <Modal.Header>
           <Modal.Title>Add new bookmark</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <InputGroup className='mb-3'>
-            <InputGroup.Prepend>
-              <InputGroup.Text id='basic-addon3'>www</InputGroup.Text>
-            </InputGroup.Prepend>
-            <FormControl
-              placeholder='www.example.com'
-              name='url'
-              as='input'
-              onChange={handleChange}
-              id='newBookmarkUrl'
-              aria-describedby='new-bookmark'
-            />
-          </InputGroup>
+          <InputGroupElement>
+            <InputGroupPrependElement groupText='www' />
+            <FormControlElement name='url' placeholder='www.example.com' focus onChange={handleChange} />
+          </InputGroupElement>
           <label htmlFor='url'>Separate tags by , </label>
-          <InputGroup className='mb-3'>
-            <InputGroup.Prepend>
-              <InputGroup.Text>Tags</InputGroup.Text>
-            </InputGroup.Prepend>
-            <FormControl
-              name='tags'
-              as='input'
-              onChange={handleChange}
-              id='newTags'
-              aria-describedby='newTags'
-            />
-            <InputGroup.Prepend>
-              <InputGroup.Text>Title</InputGroup.Text>
-            </InputGroup.Prepend>
-            <FormControl
-              name='title'
-              as='input'
-              onChange={handleChange}
-              id='newTags'
-              aria-describedby='newTitle'
-            />
-          </InputGroup>
+          <InputGroupElement>
+            <InputGroupPrependElement groupText='Tags' />
+            <FormControlElement name='tags' placeholder='tag1, tag2,' focus={false} onChange={handleChange} />
+            <InputGroupPrependElement groupText='Title' />
+            <FormControlElement name='title' placeholder='Title' focus={false} onChange={handleChange} />
+          </InputGroupElement>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant='danger' onClick={() => setShowModal(false)}>
-            Close
-          </Button>
-          <Button type='submit' variant='success' onClick={handleSave}>
-            Save Changes
-          </Button>
+          <ButtonElement type='submit' variant='danger' onClick={() => setShowModal(false)} text='Cancel' />
+          <ButtonElement type='submit' variant='success' onClick={handleSave} text='Save' />
         </Modal.Footer>
       </Modal>
     </form>
