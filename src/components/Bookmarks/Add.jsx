@@ -46,6 +46,7 @@ const AddNewBookmark = (props) => {
   const [ url, setUrl ] = useState('')
   const [ tags, setTags ] = useState('')
   const [ showModal, setShowModal ] = useState(false)
+  const [ saving, setSaving ] = useState(false)
 
   const setState = (state, newValue) => {
     switch (state) {
@@ -64,15 +65,18 @@ const AddNewBookmark = (props) => {
   }
 
   const handleSave = () => {
+    setSaving(true)
     const arrayOfTags = tags.split(',').map((tag) => tag.trim())
     addBookmark(title, url, arrayOfTags)
       .then((bookmark) => {
         props.saveUrl({ newBookmark: bookmark })
+        setSaving(false)
         setShowModal(false)
       })
       .catch((error) => {
         alert(error)
         setShowModal(true)
+        setSaving(false)
       })
   }
 
@@ -113,7 +117,12 @@ const AddNewBookmark = (props) => {
         </Modal.Body>
         <Modal.Footer>
           <ButtonElement type='submit' variant='danger' onClick={() => setShowModal(false)} text='Cancel' />
-          <ButtonElement type='submit' variant='success' onClick={handleSave} text='Save' />
+          <ButtonElement
+            type='submit'
+            variant='success'
+            onClick={handleSave}
+            text={saving ? 'Saving...' : 'Save'}
+          />
         </Modal.Footer>
       </Modal>
     </form>
