@@ -9,7 +9,7 @@ const addBookmark = (title, url, tags) => {
   return service
     .post('/bookmark', { title, url, tags })
     .then((response) => response.data)
-    .catch((error) => error)
+    .catch((error) => Promise.reject(error))
 }
 
 const bookmarks = () => {

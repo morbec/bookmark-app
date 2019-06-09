@@ -1,10 +1,17 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Button, Modal, InputGroup, FormControl } from 'react-bootstrap'
+import { Alert, Button, Modal, InputGroup, FormControl } from 'react-bootstrap'
 import { addBookmark } from 'services/bookmark'
+
+const AlertError = (props) => (
+  <Alert variant='danger'>
+    <Alert.Heading>Something whent wrong</Alert.Heading>
+    <p>{props.errorMessage}</p>
+  </Alert>
+)
 
 const InputGroupElement = (props) => {
   return <InputGroup className='mb-3'>{props.children}</InputGroup>
@@ -25,7 +32,7 @@ const FormControlElement = (props) => {
       placeholder={props.placeholder}
       // id={props.name}
       as='input'
-      focus={props.focus}
+      focus={props.focus.toString()}
       aria-describedby={props.name}
       onChange={props.onChange}
     />
@@ -47,6 +54,8 @@ const AddNewBookmark = (props) => {
   const [ tags, setTags ] = useState('')
   const [ showModal, setShowModal ] = useState(false)
   const [ saving, setSaving ] = useState(false)
+  let errorMessage = ''
+  const [ error, setError ] = useState(false)
 
   const setState = (state, newValue) => {
     switch (state) {
@@ -64,19 +73,25 @@ const AddNewBookmark = (props) => {
     }
   }
 
+  const handleCancel = () => {
+    setError(false)
+    setShowModal(false)
+  }
+
   const handleSave = () => {
     setSaving(true)
     const arrayOfTags = tags.split(',').map((tag) => tag.trim())
     addBookmark(title, url, arrayOfTags)
       .then((bookmark) => {
-        props.saveUrl({ newBookmark: bookmark })
         setSaving(false)
         setShowModal(false)
+        props.saveUrl({ newBookmark: bookmark })
       })
       .catch((error) => {
-        alert(error)
+        errorMessage = error.message
         setShowModal(true)
         setSaving(false)
+        setError(true)
       })
   }
 
@@ -110,13 +125,13 @@ const AddNewBookmark = (props) => {
           <label htmlFor='url'>Separate tags by , </label>
           <InputGroupElement>
             <InputGroupPrependElement groupText='Tags' />
-            <FormControlElement name='tags' placeholder='tag1, tag2,' focus={false} onChange={handleChange} />
+            <FormControlElement name='tags' placeholder='tag1, tag2,' focus='false' onChange={handleChange} />
             <InputGroupPrependElement groupText='Title' />
-            <FormControlElement name='title' placeholder='Title' focus={false} onChange={handleChange} />
+            <FormControlElement name='title' placeholder='Title' focus='false' onChange={handleChange} />
           </InputGroupElement>
         </Modal.Body>
         <Modal.Footer>
-          <ButtonElement type='submit' variant='danger' onClick={() => setShowModal(false)} text='Cancel' />
+          <ButtonElement type='submit' variant='danger' onClick={handleCancel} text='Cancel' />
           <ButtonElement
             type='submit'
             variant='success'
@@ -124,6 +139,7 @@ const AddNewBookmark = (props) => {
             text={saving ? 'Saving...' : 'Save'}
           />
         </Modal.Footer>
+        {error && <AlertError errorMessage={errorMessage} />}
       </Modal>
     </form>
   )
