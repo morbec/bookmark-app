@@ -34,8 +34,7 @@ const scrape = (anyURL) => {
     .then((res) => {
       return res.data
     })
-    .catch((e) => e)
-  //TODO: Handle the error above
+    .catch((error) => Promise.reject(error))
 }
 
 export { addBookmark, bookmarks, getBookmarkById, editBookmark, deleteBookmark, scrape }
