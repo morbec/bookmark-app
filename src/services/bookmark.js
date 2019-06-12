@@ -13,7 +13,7 @@ const addBookmark = (title, url, tags) => {
 }
 
 const bookmarks = () => {
-  return service.get('/bookmark').then((bookmarks) => bookmarks).catch((error) => error)
+  return service.get('/bookmark').then((response) => response.data).catch((error) => error)
 }
 
 const getBookmarkById = (_id) => {

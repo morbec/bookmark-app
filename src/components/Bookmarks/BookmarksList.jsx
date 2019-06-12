@@ -2,15 +2,14 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unused-state */
 import React, { Component } from 'react'
-import Alert from 'react-bootstrap/Alert'
-import Jumbotron from 'react-bootstrap/Jumbotron'
-import ListGroup from 'react-bootstrap/ListGroup'
-import axios from 'axios'
+import { Alert, Col, Jumbotron, ListGroup, Row } from 'react-bootstrap'
+import { bookmarks } from 'services/bookmark'
+import { TagsList } from 'components/Tags'
 
 class BookmarksList extends Component {
   state = {
     bookmarksList: [],
-    userLoggedIn: this.props.userLoggedIn,
+    userLoggedIn: this.props.userLoggedIn
   }
 
   componentDidMount() {
@@ -25,50 +24,55 @@ class BookmarksList extends Component {
   }
 
   getBookmarks = () => {
-    axios
-      .get(`${process.env.REACT_APP_SERVER_API_URL}/bookmark`, { withCredentials: true })
-      .then((response) => {
-        this.setState({
-          bookmarksList: response.data,
-        })
+    bookmarks()
+      .then((bookmarks) => {
+        this.setState({ bookmarksList: bookmarks })
       })
-      .catch((e) => e)
+      .catch((error) => alert(error))
   }
 
   render() {
     return (
       <Jumbotron style={{ height: '100vh' }}>
-        {this.state.userLoggedIn ? (
-          <React.Fragment>
-            <ListGroup variant='flush'>
-              {this.state.bookmarksList.map((lnk, idx) => (
-                // TODO: Move the styling to a proper css file
-                <ListGroup.Item
-                  style={{
-                    padding: '25px',
-                    marginTop: '2px',
-                    marginBottom: '5px',
-                    borderRadius: '10px 10px 10px 10px',
-                  }}
-                  key={idx}
-                  as='a'
-                  target='_blank'
-                  href={lnk.url}>
-                  {lnk.title} - {lnk.url}
-                </ListGroup.Item>
-              ))}
-            </ListGroup>
-          </React.Fragment>
-        ) : (
-          <React.Fragment>
-            <Alert variant='danger'>
-              <Alert.Heading>Protected content</Alert.Heading>
-              <p>
-                You need to <strong>Log in</strong> or <strong>Sign up</strong> first.
-              </p>
-            </Alert>
-          </React.Fragment>
-        )}
+        <Row>
+          <Col xs={2}>
+            Tags
+            {/* <TagsList bookmarks={this.state.bookmarksList} /> */}
+          </Col>
+          <Col xs={9}>
+            {this.state.userLoggedIn ? (
+              <React.Fragment>
+                <ListGroup variant='flush'>
+                  {this.state.bookmarksList.map((lnk, idx) => (
+                    // TODO: Move the styling to a proper css file
+                    <ListGroup.Item
+                      style={{
+                        padding: '25px',
+                        marginTop: '2px',
+                        marginBottom: '5px',
+                        borderRadius: '10px 10px 10px 10px'
+                      }}
+                      key={idx}
+                      as='a'
+                      target='_blank'
+                      href={lnk.url}>
+                      {lnk.title} - {lnk.url}
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <Alert variant='danger'>
+                  <Alert.Heading>Protected content</Alert.Heading>
+                  <p>
+                    You need to <strong>Log in</strong> or <strong>Sign up</strong> first.
+                  </p>
+                </Alert>
+              </React.Fragment>
+            )}
+          </Col>
+        </Row>
       </Jumbotron>
     )
   }
