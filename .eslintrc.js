@@ -5,6 +5,13 @@ module.exports = {
     node: true
   },
   extends: [ 'airbnb', 'eslint:recommended', 'plugin:react/recommended', 'plugin:jsx-a11y/recommended' ],
+  settings: {
+    'import/resolver': {
+      node: {
+        paths: [ 'src' ]
+      }
+    }
+  },
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly'

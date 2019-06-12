@@ -1,6 +1,5 @@
 import React from 'react'
 
-// eslint-disable-next-line import/no-unresolved
 import 'assets/Home.css'
 
 const Home = () => {
