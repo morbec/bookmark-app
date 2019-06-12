@@ -4,12 +4,12 @@ import React, { useEffect, useState } from 'react'
 import { Router, Switch, Route } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
 
-import AppNavbar from './components/AppNavbar'
-import SignUp from './components/Auth/SignUp'
-import { Login } from './components/Auth/Login'
-import { loggedIn } from './services/auth'
-import BookmarksList from './components/Bookmarks/BookmarksList'
-import Home from './components/Home'
+import BookmarksList from 'components/Bookmarks/BookmarksList'
+import AppNavbar from 'components/AppNavbar'
+import SignUp from 'components/Auth/SignUp'
+import { Login } from 'components/Auth/Login'
+import { loggedIn } from 'services/auth'
+import Home from 'components/Home'
 
 import './App.css'
 
