@@ -31,13 +31,14 @@ class BookmarksList extends Component {
       .catch((error) => alert(error))
   }
 
+  handleTagClick = (tagId, tagName) => {}
+
   render() {
     return (
       <Jumbotron style={{ height: '100vh' }}>
         <Row>
           <Col xs={2}>
-            Tags
-            {/* <TagsList bookmarks={this.state.bookmarksList} /> */}
+            <TagsList handleTagClick={this.handleTagClick} bookmarks={this.state.bookmarksList} />
           </Col>
           <Col xs={9}>
             {this.state.userLoggedIn ? (
