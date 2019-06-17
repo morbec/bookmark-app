@@ -1,6 +1,6 @@
 import React from 'react'
 
-import '../assets/Home.css'
+import 'assets/Home.css'
 
 const Home = () => {
   return (
@@ -10,7 +10,6 @@ const Home = () => {
           <span className='anim-left'> A place where your bookmarks</span>
           <span className='anim-bottom'> can call Home.</span>
         </div>
-        {/* <div className='col-lg-6' /> */}
       </div>
     </div>
   )

@@ -1,23 +1,23 @@
-/* eslint-disable */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/no-unused-state */
+/* eslint-disable react/no-array-index-key */
 import React, { Component } from 'react'
-import Alert from 'react-bootstrap/Alert'
-import Jumbotron from 'react-bootstrap/Jumbotron'
-import ListGroup from 'react-bootstrap/ListGroup'
-import axios from 'axios'
+import { Alert, Col, Jumbotron, ListGroup, Row } from 'react-bootstrap'
+import { bookmarks } from 'services/bookmark'
+import { TagsList } from 'components/Tags'
 
 class BookmarksList extends Component {
   state = {
     bookmarksList: [],
-    userLoggedIn: this.props.userLoggedIn,
+    filteredBookmarks: [],
+    userLoggedIn: this.props.userLoggedIn
   }
+  activeTags = []
 
   componentDidMount() {
     this.getBookmarks()
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  // componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
       this.setState({ userLoggedIn: this.props.userLoggedIn })
       this.getBookmarks()
@@ -25,50 +25,76 @@ class BookmarksList extends Component {
   }
 
   getBookmarks = () => {
-    axios
-      .get(`${process.env.REACT_APP_SERVER_API_URL}/bookmark`, { withCredentials: true })
-      .then((response) => {
-        this.setState({
-          bookmarksList: response.data,
+    bookmarks()
+      .then((bookmarks) => {
+        this.setState({ bookmarksList: bookmarks, filteredBookmarks: [ ...this.state.bookmarksList ] })
+      })
+      .catch((error) => alert(error))
+  }
+
+  handleTagClick = () => {
+    const { activeTags } = this
+    const _filteredBookmarks = []
+    if (activeTags.length) {
+      activeTags.forEach((tagId) => {
+        const _bookmarks = this.state.bookmarksList.filter((bookmark) =>
+          bookmark._tags.find((tag) => tag._id === tagId)
+        )
+        _bookmarks.forEach((bookmark) => {
+          if (!_filteredBookmarks.includes(bookmark)) _filteredBookmarks.push(bookmark)
         })
       })
-      .catch((e) => e)
+      this.setState({ filteredBookmarks: _filteredBookmarks })
+    } else this.setState({ filteredBookmarks: [ ...this.state.bookmarksList ] })
   }
 
   render() {
     return (
       <Jumbotron style={{ height: '100vh' }}>
-        {this.state.userLoggedIn ? (
-          <React.Fragment>
-            <ListGroup variant='flush'>
-              {this.state.bookmarksList.map((lnk, idx) => (
-                // TODO: Move the styling to a proper css file
-                <ListGroup.Item
-                  style={{
-                    padding: '25px',
-                    marginTop: '2px',
-                    marginBottom: '5px',
-                    borderRadius: '10px 10px 10px 10px',
-                  }}
-                  key={idx}
-                  as='a'
-                  target='_blank'
-                  href={lnk.url}>
-                  {lnk.title} - {lnk.url}
-                </ListGroup.Item>
-              ))}
-            </ListGroup>
-          </React.Fragment>
-        ) : (
-          <React.Fragment>
-            <Alert variant='danger'>
-              <Alert.Heading>Protected content</Alert.Heading>
-              <p>
-                You need to <strong>Log in</strong> or <strong>Sign up</strong> first.
-              </p>
-            </Alert>
-          </React.Fragment>
-        )}
+        <Row>
+          <Col xs={2}>
+            <TagsList
+              activeTags={this.activeTags}
+              handleTagClick={this.handleTagClick}
+              bookmarks={this.state.bookmarksList}
+            />
+          </Col>
+          <Col xs={9}>
+            {this.state.userLoggedIn ? (
+              <React.Fragment>
+                <ListGroup variant='flush'>
+                  {this.state.filteredBookmarks.map((lnk, idx) => (
+                    // TODO: Move the styling to a proper css file
+                    <ListGroup.Item
+                      style={{
+                        padding: '25px',
+                        marginTop: '2px',
+                        marginBottom: '5px',
+                        borderRadius: '10px 10px 10px 10px'
+                      }}
+                      key={idx}
+                      as='a'
+                      target='_blank'
+                      href={lnk.url}>
+                      {lnk.title}
+                      {' - '}
+                      {lnk.url}
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <Alert variant='danger'>
+                  <Alert.Heading>Protected content</Alert.Heading>
+                  <p>
+                    You need to <strong>Log in</strong> or <strong>Sign up</strong> first.
+                  </p>
+                </Alert>
+              </React.Fragment>
+            )}
+          </Col>
+        </Row>
       </Jumbotron>
     )
   }

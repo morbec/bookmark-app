@@ -13,7 +13,7 @@ const addBookmark = (title, url, tags) => {
 }
 
 const bookmarks = () => {
-  return service.get('/bookmark').then((bookmarks) => bookmarks).catch((error) => error)
+  return service.get('/bookmark').then((response) => response.data).catch((error) => error)
 }
 
 const getBookmarkById = (_id) => {
@@ -34,8 +34,7 @@ const scrape = (anyURL) => {
     .then((res) => {
       return res.data
     })
-    .catch((e) => e)
-  //TODO: Handle the error above
+    .catch((error) => Promise.reject(error))
 }
 
 export { addBookmark, bookmarks, getBookmarkById, editBookmark, deleteBookmark, scrape }
