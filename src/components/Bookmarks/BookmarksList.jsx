@@ -1,6 +1,4 @@
-/* eslint-disable */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/no-unused-state */
+/* eslint-disable react/no-array-index-key */
 import React, { Component } from 'react'
 import { Alert, Col, Jumbotron, ListGroup, Row } from 'react-bootstrap'
 import { bookmarks } from 'services/bookmark'
@@ -9,14 +7,17 @@ import { TagsList } from 'components/Tags'
 class BookmarksList extends Component {
   state = {
     bookmarksList: [],
+    filteredBookmarks: [],
     userLoggedIn: this.props.userLoggedIn
   }
+  activeTags = []
 
   componentDidMount() {
     this.getBookmarks()
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  // componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
       this.setState({ userLoggedIn: this.props.userLoggedIn })
       this.getBookmarks()
@@ -26,25 +27,43 @@ class BookmarksList extends Component {
   getBookmarks = () => {
     bookmarks()
       .then((bookmarks) => {
-        this.setState({ bookmarksList: bookmarks })
+        this.setState({ bookmarksList: bookmarks, filteredBookmarks: [ ...this.state.bookmarksList ] })
       })
       .catch((error) => alert(error))
   }
 
-  handleTagClick = (tagId, tagName) => {}
+  handleTagClick = () => {
+    const { activeTags } = this
+    const _filteredBookmarks = []
+    if (activeTags.length) {
+      activeTags.forEach((tagId) => {
+        const _bookmarks = this.state.bookmarksList.filter((bookmark) =>
+          bookmark._tags.find((tag) => tag._id === tagId)
+        )
+        _bookmarks.forEach((bookmark) => {
+          if (!_filteredBookmarks.includes(bookmark)) _filteredBookmarks.push(bookmark)
+        })
+      })
+      this.setState({ filteredBookmarks: _filteredBookmarks })
+    } else this.setState({ filteredBookmarks: [ ...this.state.bookmarksList ] })
+  }
 
   render() {
     return (
       <Jumbotron style={{ height: '100vh' }}>
         <Row>
           <Col xs={2}>
-            <TagsList handleTagClick={this.handleTagClick} bookmarks={this.state.bookmarksList} />
+            <TagsList
+              activeTags={this.activeTags}
+              handleTagClick={this.handleTagClick}
+              bookmarks={this.state.bookmarksList}
+            />
           </Col>
           <Col xs={9}>
             {this.state.userLoggedIn ? (
               <React.Fragment>
                 <ListGroup variant='flush'>
-                  {this.state.bookmarksList.map((lnk, idx) => (
+                  {this.state.filteredBookmarks.map((lnk, idx) => (
                     // TODO: Move the styling to a proper css file
                     <ListGroup.Item
                       style={{
@@ -57,7 +76,9 @@ class BookmarksList extends Component {
                       as='a'
                       target='_blank'
                       href={lnk.url}>
-                      {lnk.title} - {lnk.url}
+                      {lnk.title}
+                      {' - '}
+                      {lnk.url}
                     </ListGroup.Item>
                   ))}
                 </ListGroup>

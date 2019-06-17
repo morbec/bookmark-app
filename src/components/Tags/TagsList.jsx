@@ -2,14 +2,22 @@ import React from 'react'
 import { ListGroup } from 'react-bootstrap'
 
 const TagsList = (props) => {
-  const { bookmarks } = props
+  const { bookmarks, activeTags } = props
+
+  const handleTags = (tagId) => {}
 
   const handleClick = (tagId, tagName, event) => {
+    if (event.target.classList.contains('active')) {
+      event.target.style.backgroundColor = 'white'
+      const indexOfTag = activeTags.indexOf(tagId)
+      if (indexOfTag !== -1) activeTags.splice(indexOfTag, 1)
+      props.handleTagClick()
+    } else {
+      event.target.style.backgroundColor = 'blue'
+      activeTags.push(tagId)
+      props.handleTagClick()
+    }
     event.target.classList.toggle('active')
-    event.target.classList.contains('active')
-      ? (event.target.style.backgroundColor = 'blue')
-      : (event.target.style.backgroundColor = 'white')
-    props.handleTagClick(tagId, tagName)
   }
 
   // Since a bookmark can have multiple tags I was having duplicated tags
@@ -30,13 +38,16 @@ const TagsList = (props) => {
       action
       onClick={(event) => handleClick(ids[idx], tagName, event)}
       as='li'
-      key={ids[idx]}
-    >
+      key={ids[idx]}>
       {tagName}
     </ListGroup.Item>
   ))
   return (
-    <ListGroup as='ul' style={{ padding: '0 20px' }}>
+    <ListGroup
+      as='ul'
+      style={{
+        padding: '0 20px'
+      }}>
       {tagsList}
     </ListGroup>
   )
