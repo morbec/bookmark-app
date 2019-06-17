@@ -3,12 +3,12 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Form from 'react-bootstrap/Form'
-import FormControl from 'react-bootstrap/FormControl'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 
 import { logout } from 'services/auth'
 import AddNewBookmark from './Bookmarks/Add'
+import SearchBookmarks from './Bookmarks/Search'
 
 class AppNavbar extends Component {
   state = {
@@ -49,7 +49,7 @@ class AppNavbar extends Component {
           <Nav hidden={!this.state.userLoggedIn} className='justify-content-center'>
             <Nav.Item>
               <Form inline>
-                <FormControl type='text' disabled placeholder='Search...' className='mr-sm-2' />
+                <SearchBookmarks placeholder='Search...' />
               </Form>
             </Nav.Item>
           </Nav>

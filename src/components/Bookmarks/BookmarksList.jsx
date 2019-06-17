@@ -1,3 +1,4 @@
+/* eslint-disable react/no-did-update-set-state */
 /* eslint-disable react/no-array-index-key */
 import React, { Component } from 'react'
 import { Alert, Col, Jumbotron, ListGroup, Row } from 'react-bootstrap'
@@ -27,7 +28,7 @@ class BookmarksList extends Component {
   getBookmarks = () => {
     bookmarks()
       .then((bookmarks) => {
-        this.setState({ bookmarksList: bookmarks, filteredBookmarks: [ ...this.state.bookmarksList ] })
+        this.setState({ bookmarksList: bookmarks, filteredBookmarks: bookmarks })
       })
       .catch((error) => alert(error))
   }
@@ -45,7 +46,9 @@ class BookmarksList extends Component {
         })
       })
       this.setState({ filteredBookmarks: _filteredBookmarks })
-    } else this.setState({ filteredBookmarks: [ ...this.state.bookmarksList ] })
+    } else {
+      this.setState((prevState) => ({ filteredBookmarks: prevState.bookmarksList }))
+    }
   }
 
   render() {
@@ -75,7 +78,8 @@ class BookmarksList extends Component {
                       key={idx}
                       as='a'
                       target='_blank'
-                      href={lnk.url}>
+                      href={lnk.url}
+                    >
                       {lnk.title}
                       {' - '}
                       {lnk.url}
@@ -88,7 +92,11 @@ class BookmarksList extends Component {
                 <Alert variant='danger'>
                   <Alert.Heading>Protected content</Alert.Heading>
                   <p>
-                    You need to <strong>Log in</strong> or <strong>Sign up</strong> first.
+                    You need to
+                    <strong>Log in</strong>
+                    or
+                    <strong>Sign up</strong>
+                    first.
                   </p>
                 </Alert>
               </React.Fragment>
