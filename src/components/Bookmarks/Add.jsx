@@ -77,11 +77,7 @@ const AddNewBookmark = (props) => {
 
   const handleSave = () => {
     setSaving(true)
-    const arrayOfTags = tags.split(',').filter((tag) => {
-      if (tag.trim().length > 0) {
-        return tag.trim()
-      }
-    })
+    const arrayOfTags = tags.split(',').filter((tag) => tag.trim())
     addBookmark(title, url, arrayOfTags)
       .then((bookmark) => {
         setSaving(false)

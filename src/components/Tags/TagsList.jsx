@@ -23,7 +23,12 @@ const TagsList = (props) => {
   const tagIds = new Set()
   const tagNames = new Set()
   if (bookmarks.length)
-    bookmarks.map((bookmark) => bookmark._tags.map((tag) => (tagIds.add(tag._id), tagNames.add(tag.name))))
+    bookmarks.map((bookmark) =>
+      bookmark._tags.forEach((tag) => {
+        tagIds.add(tag._id)
+        tagNames.add(tag.name)
+      })
+    )
   const ids = [ ...tagIds ]
   const tagsList = [ ...tagNames ].map((tagName, idx) => (
     <ListGroup.Item
