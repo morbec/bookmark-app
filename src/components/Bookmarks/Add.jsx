@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import { Alert, Button, Modal, InputGroup, FormControl } from 'react-bootstrap'
 import { addBookmark } from 'services/bookmark'
 
@@ -29,7 +28,6 @@ const FormControlElement = (props) => {
     <FormControl
       name={props.name}
       placeholder={props.placeholder}
-      // id={props.name}
       as='input'
       focus={props.focus.toString()}
       aria-describedby={props.name}
@@ -79,7 +77,11 @@ const AddNewBookmark = (props) => {
 
   const handleSave = () => {
     setSaving(true)
-    const arrayOfTags = tags.split(',').map((tag) => tag.trim())
+    const arrayOfTags = tags.split(',').filter((tag) => {
+      if (tag.trim().length > 0) {
+        return tag.trim()
+      }
+    })
     addBookmark(title, url, arrayOfTags)
       .then((bookmark) => {
         setSaving(false)

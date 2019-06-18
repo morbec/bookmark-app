@@ -28,13 +28,4 @@ const deleteBookmark = (_id) => {
   service.delete(`/bookmark/:${_id}`).then((response) => response.data).catch((error) => error)
 }
 
-const scrape = (anyURL) => {
-  return service
-    .post('/bookmark/scrape', { anyURL })
-    .then((res) => {
-      return res.data
-    })
-    .catch((error) => Promise.reject(error))
-}
-
-export { addBookmark, bookmarks, getBookmarkById, editBookmark, deleteBookmark, scrape }
+export { addBookmark, bookmarks, getBookmarkById, editBookmark, deleteBookmark }

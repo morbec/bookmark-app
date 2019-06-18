@@ -4,8 +4,6 @@ import { ListGroup } from 'react-bootstrap'
 const TagsList = (props) => {
   const { bookmarks, activeTags } = props
 
-  const handleTags = (tagId) => {}
-
   const handleClick = (tagId, tagName, event) => {
     if (event.target.classList.contains('active')) {
       event.target.style.backgroundColor = 'white'
@@ -38,7 +36,8 @@ const TagsList = (props) => {
       action
       onClick={(event) => handleClick(ids[idx], tagName, event)}
       as='li'
-      key={ids[idx]}>
+      key={ids[idx]}
+    >
       {tagName}
     </ListGroup.Item>
   ))
@@ -47,7 +46,8 @@ const TagsList = (props) => {
       as='ul'
       style={{
         padding: '0 20px'
-      }}>
+      }}
+    >
       {tagsList}
     </ListGroup>
   )
