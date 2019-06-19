@@ -5,13 +5,6 @@ module.exports = {
     node: true
   },
   extends: [ 'airbnb', 'eslint:recommended', 'plugin:react/recommended', 'plugin:jsx-a11y/recommended' ],
-  settings: {
-    'import/resolver': {
-      node: {
-        paths: [ 'src' ]
-      }
-    }
-  },
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly'
@@ -26,6 +19,8 @@ module.exports = {
   parser: 'babel-eslint',
   plugins: [ 'react', 'jsx-a11y', 'react-hooks' ],
   rules: {
+    'react/prop-types': [ 0 ],
+    'react/no-array-index-key': [ 0 ],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'react/destructuring-assignment': [ 'off', { ignoreClassFields: true } ],
@@ -35,7 +30,6 @@ module.exports = {
     'eslint.alwaysShowStatus': true,
     'react/jsx-uses-react': 'error',
     'react/jsx-uses-vars': 'error',
-    'react/prop-types': [ 0, {} ],
     'constructor-super': 'warn',
     'no-this-before-super': 'warn',
     'jsx-a11y/label-has-associated-control': [
