@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import { Alert, Button, Modal, InputGroup, FormControl } from 'react-bootstrap'
+// eslint-disable-next-line import/no-unresolved
 import { addBookmark } from 'services/bookmark'
 
 const AlertError = (props) => (
@@ -51,7 +52,7 @@ const AddNewBookmark = (props) => {
   const [ tags, setTags ] = useState('')
   const [ showModal, setShowModal ] = useState(false)
   const [ saving, setSaving ] = useState(false)
-  let errorMessage = ''
+  const [ errorMessage, setErrorMessage ] = useState('')
   const [ error, setError ] = useState(false)
 
   const setState = (state, newValue) => {
@@ -76,20 +77,32 @@ const AddNewBookmark = (props) => {
   }
 
   const handleSave = () => {
-    setSaving(true)
-    const arrayOfTags = tags.split(',').filter((tag) => tag.trim())
-    addBookmark(title, url, arrayOfTags)
-      .then((bookmark) => {
-        setSaving(false)
-        setShowModal(false)
-        props.saveUrl({ newBookmark: bookmark })
-      })
-      .catch((error) => {
-        errorMessage = error.message
-        setShowModal(true)
-        setSaving(false)
-        setError(true)
-      })
+    if (url.trim().length === 0) {
+      setErrorMessage("URL can't be empty")
+      setError(true)
+    } else if (title.trim().length === 0) {
+      setErrorMessage("Title can't be empty")
+      setError(true)
+    } else {
+      setError(false)
+      setSaving(true)
+      const arrayOfTags = tags.split(',').filter((tag) => tag.trim())
+      addBookmark(title, url, arrayOfTags)
+        .then((bookmark) => {
+          setSaving(false)
+          setShowModal(false)
+          props.saveUrl({ newBookmark: bookmark })
+        })
+        .catch((error) => {
+          setErrorMessage(error.message)
+          setShowModal(true)
+          setSaving(false)
+          setError(true)
+        })
+      setUrl('')
+      setTitle('')
+      setTags('')
+    }
   }
 
   const handleChange = (event) => {
