@@ -6,7 +6,8 @@ import Form from 'react-bootstrap/Form'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 
-import { logout } from 'services/auth'
+// import { logout } from 'services/auth'
+import { logout } from '../services/auth'
 import AddNewBookmark from './Bookmarks/Add'
 import SearchBookmarks from './Bookmarks/Search'
 
@@ -59,7 +60,8 @@ class AppNavbar extends Component {
                 <Nav.Item>
                   <Nav.Link
                     variant='outline-info'
-                    to='/'
+                    as='a'
+                    href='/'
                     onClick={this.handleLogout}
                     style={{ textDecoration: 'none', color: '#9A9DA0' }}
                   >
@@ -69,7 +71,8 @@ class AppNavbar extends Component {
                 <Nav.Item>
                   <Nav.Link
                     variant='outline-info'
-                    to='/Settings'
+                    as='a'
+                    href='/Settings'
                     disabled
                     style={{ textDecoration: 'none', color: '#9A9DA0' }}
                   >
@@ -82,7 +85,8 @@ class AppNavbar extends Component {
                 <Nav.Item>
                   <Nav.Link
                     variant='outline-linfo'
-                    to='/login'
+                    as='a'
+                    href='/login'
                     style={{ textDecoration: 'none', color: '#9A9DA0' }}
                   >
                     Log in
@@ -91,7 +95,8 @@ class AppNavbar extends Component {
                 <Nav.Item>
                   <Nav.Link
                     variant='outline-info'
-                    to='/sign-up'
+                    as='a'
+                    href='/sign-up'
                     style={{ textDecoration: 'none', color: '#9A9DA0' }}
                   >
                     Sign up

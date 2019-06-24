@@ -117,14 +117,29 @@ const AddNewBookmark = (props) => {
         <Modal.Body>
           <InputGroupElement>
             <InputGroupPrependElement groupText='www' />
-            <FormControlElement name='url' placeholder='www.example.com' focus onChange={handleChange} />
+            <FormControlElement
+              name='url'
+              placeholder='www.example.com'
+              focus
+              onChange={handleChange}
+            />
           </InputGroupElement>
           <label htmlFor='url'>Separate tags by , </label>
           <InputGroupElement>
             <InputGroupPrependElement groupText='Tags' />
-            <FormControlElement name='tags' placeholder='tag1, tag2,' focus='false' onChange={handleChange} />
+            <FormControlElement
+              name='tags'
+              placeholder='tag1, tag2,'
+              focus='false'
+              onChange={handleChange}
+            />
             <InputGroupPrependElement groupText='Title' />
-            <FormControlElement name='title' placeholder='Title' focus='false' onChange={handleChange} />
+            <FormControlElement
+              name='title'
+              placeholder='Title'
+              focus='false'
+              onChange={handleChange}
+            />
           </InputGroupElement>
         </Modal.Body>
         <Modal.Footer>
