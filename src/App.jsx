@@ -4,12 +4,12 @@ import React, { useEffect, useState } from 'react'
 import { Router, Switch, Route } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
 
-import BookmarksList from 'components/Bookmarks/BookmarksList'
-import AppNavbar from 'components/AppNavbar'
-import SignUp from 'components/Auth/SignUp'
-import { Login } from 'components/Auth/Login'
-import { loggedIn } from 'services/auth'
-import Home from 'components/Home'
+import SignUp from './components/Auth/SignUp'
+import { Login } from './components/Auth/Login'
+import { loggedIn } from './services/auth'
+import Home from './components/Home'
+import BookmarksList from './components/Bookmarks/BookmarksList'
+import AppNavbar from './components/AppNavbar'
 
 import './App.css'
 
@@ -44,7 +44,11 @@ const App = () => {
         <AppNavbar saveUrl={saveNewBookmark} setUser={setUser} userLoggedIn={loggedInUser} />
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route exact path='/sign-up' render={(props) => <SignUp {...props} setUser={setUser} />} />
+          <Route
+            exact
+            path='/sign-up'
+            render={(props) => <SignUp {...props} setUser={setUser} />}
+          />
           <Route exact path='/login' render={(props) => <Login {...props} setUser={setUser} />} />
           <Route
             exact
