@@ -1,9 +1,11 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable react/no-did-update-set-state */
 /* eslint-disable react/no-array-index-key */
 import React, { Component } from 'react'
-import { Alert, Col, Jumbotron, ListGroup, Row } from 'react-bootstrap'
-import { bookmarks } from 'services/bookmark'
+import { Alert, Col, Jumbotron, Row } from 'react-bootstrap'
 import { TagsList } from 'components/Tags'
+import { bookmarks } from 'services/bookmark'
+import BookmarkCard from './Card'
 
 class BookmarksList extends Component {
   state = {
@@ -28,7 +30,10 @@ class BookmarksList extends Component {
   getBookmarks = () => {
     bookmarks()
       .then((bookmarks) => {
-        this.setState({ bookmarksList: bookmarks, filteredBookmarks: bookmarks })
+        this.setState({
+          bookmarksList: bookmarks,
+          filteredBookmarks: bookmarks
+        })
       })
       .catch((error) => alert(error))
   }
@@ -42,12 +47,15 @@ class BookmarksList extends Component {
           bookmark._tags.find((tag) => tag._id === tagId)
         )
         _bookmarks.forEach((bookmark) => {
-          if (!_filteredBookmarks.includes(bookmark)) _filteredBookmarks.push(bookmark)
+          if (!_filteredBookmarks.includes(bookmark))
+            _filteredBookmarks.push(bookmark)
         })
       })
       this.setState({ filteredBookmarks: _filteredBookmarks })
     } else {
-      this.setState((prevState) => ({ filteredBookmarks: prevState.bookmarksList }))
+      this.setState((prevState) => ({
+        filteredBookmarks: prevState.bookmarksList
+      }))
     }
   }
 
@@ -65,31 +73,11 @@ class BookmarksList extends Component {
           <Col xs={9}>
             {this.state.userLoggedIn ? (
               <React.Fragment>
-                <ListGroup variant='flush'>
-                  {this.state.filteredBookmarks.map((lnk, idx) => (
-                    // TODO: Move the styling to a proper css file
-                    <ListGroup.Item
-                      style={{
-                        padding: '25px',
-                        marginTop: '2px',
-                        marginBottom: '5px',
-                        borderRadius: '10px 10px 10px 10px'
-                      }}
-                      key={idx}
-                      as='a'
-                      target='_blank'
-                      href={lnk.url}
-                    >
-                      {lnk.title}
-                      {' - '}
-                      {lnk.url}
-                    </ListGroup.Item>
-                  ))}
-                </ListGroup>
+                <BookmarkCard bookmarks={this.state.filteredBookmarks} />
               </React.Fragment>
             ) : (
               <React.Fragment>
-                <Alert variant='danger'>
+                <Alert variant="danger">
                   <Alert.Heading>Protected content</Alert.Heading>
                   <p>
                     You need to
