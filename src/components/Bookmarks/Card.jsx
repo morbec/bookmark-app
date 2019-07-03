@@ -1,5 +1,11 @@
 import React from 'react'
-import { CardColumns, Card } from 'react-bootstrap'
+import {
+  Button,
+  ButtonGroup,
+  ButtonToolbar,
+  Card,
+  CardColumns
+} from 'react-bootstrap'
 
 const BookmarkCard = (props) => {
   const { bookmarks } = props
@@ -13,7 +19,18 @@ const BookmarkCard = (props) => {
               <Card.Text>{bookmark.url}</Card.Text>
             </Card.Body>
             <Card.Footer>
-              <small className="text-muted">foo</small>
+              <ButtonToolbar className="justify-content-between">
+                <ButtonGroup>
+                  <Button variant="success" size="sm">
+                    Edit
+                  </Button>
+                </ButtonGroup>
+                <ButtonGroup>
+                  <Button variant="danger" size="sm">
+                    Delete
+                  </Button>
+                </ButtonGroup>
+              </ButtonToolbar>
             </Card.Footer>
           </Card>
         ))}
