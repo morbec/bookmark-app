@@ -4,7 +4,8 @@
 import React, { Component } from 'react'
 import { Alert, Col, Jumbotron, Row } from 'react-bootstrap'
 import { TagsList } from 'components/Tags'
-import { bookmarks } from 'services/bookmark'
+import { bookmarks, deleteBookmark } from 'services/bookmark'
+import { deleteTag } from 'services/tags'
 import BookmarkCard from './Card'
 
 class BookmarksList extends Component {
@@ -38,14 +39,23 @@ class BookmarksList extends Component {
       .catch((error) => alert(error))
   }
 
+  /**
+   * @param {string} tagId - Id of a tag object
+   * @returns {Array} - Bookmarks associated with the tag
+   */
+  getBookmarksByTag = (tagId) => {
+    return this.state.bookmarksList.filter((bookmark) =>
+      bookmark._tags.find((tag) => tag._id === tagId)
+    )
+  }
+
   handleTagClick = () => {
     const { activeTags } = this
     const _filteredBookmarks = []
     if (activeTags.length) {
       activeTags.forEach((tagId) => {
-        const _bookmarks = this.state.bookmarksList.filter((bookmark) =>
-          bookmark._tags.find((tag) => tag._id === tagId)
-        )
+        const _bookmarks = this.getBookmarksByTag(tagId)
+        // TODO: Check if I need to do this indeed
         _bookmarks.forEach((bookmark) => {
           if (!_filteredBookmarks.includes(bookmark))
             _filteredBookmarks.push(bookmark)
@@ -57,6 +67,24 @@ class BookmarksList extends Component {
         filteredBookmarks: prevState.bookmarksList
       }))
     }
+  }
+
+  /**
+   * Function
+   * @param {Object} bookmark - Bookmark object
+   */
+  handleDeleteBookmark = (bookmark) => {
+    bookmark._tags.forEach((tag) => {
+      const bookmarksByTag = this.getBookmarksByTag(tag._id)
+      if (bookmarksByTag.length === 1) {
+        deleteTag(tag._id)
+          .then()
+          .catch((error) => alert(error))
+      }
+    })
+    deleteBookmark(bookmark._id)
+      .then(() => this.getBookmarks())
+      .catch((error) => alert(error))
   }
 
   render() {
@@ -73,7 +101,10 @@ class BookmarksList extends Component {
           <Col xs={9}>
             {this.state.userLoggedIn ? (
               <React.Fragment>
-                <BookmarkCard bookmarks={this.state.filteredBookmarks} />
+                <BookmarkCard
+                  handleDeleteBookmark={this.handleDeleteBookmark}
+                  bookmarks={this.state.filteredBookmarks}
+                />
               </React.Fragment>
             ) : (
               <React.Fragment>
