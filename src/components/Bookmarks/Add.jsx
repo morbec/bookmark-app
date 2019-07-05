@@ -1,19 +1,18 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Alert, Button, Modal, InputGroup, FormControl } from 'react-bootstrap'
 // eslint-disable-next-line import/no-unresolved
 import { addBookmark } from 'services/bookmark'
 
 const AlertError = (props) => (
-  <Alert variant='danger'>
+  <Alert variant="danger">
     <Alert.Heading>Something whent wrong</Alert.Heading>
     <p>{props.errorMessage}</p>
   </Alert>
 )
 
 const InputGroupElement = (props) => {
-  return <InputGroup className='mb-3'>{props.children}</InputGroup>
+  return <InputGroup className="mb-3">{props.children}</InputGroup>
 }
 
 const InputGroupPrependElement = (props) => {
@@ -29,7 +28,7 @@ const FormControlElement = (props) => {
     <FormControl
       name={props.name}
       placeholder={props.placeholder}
-      as='input'
+      as="input"
       focus={props.focus.toString()}
       aria-describedby={props.name}
       onChange={props.onChange}
@@ -46,14 +45,14 @@ const ButtonElement = (props) => {
 }
 
 const AddNewBookmark = (props) => {
-  const [ userLoggedIn, setUserLoggedIn ] = useState(props.userLoggedIn)
-  const [ title, setTitle ] = useState('')
-  const [ url, setUrl ] = useState('')
-  const [ tags, setTags ] = useState('')
-  const [ showModal, setShowModal ] = useState(false)
-  const [ saving, setSaving ] = useState(false)
-  const [ errorMessage, setErrorMessage ] = useState('')
-  const [ error, setError ] = useState(false)
+  const [userLoggedIn, setUserLoggedIn] = useState(props.userLoggedIn)
+  const [title, setTitle] = useState('')
+  const [url, setUrl] = useState('')
+  const [tags, setTags] = useState('')
+  const [showModal, setShowModal] = useState(false)
+  const [saving, setSaving] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
+  const [error, setError] = useState(false)
 
   const setState = (state, newValue) => {
     switch (state) {
@@ -118,48 +117,58 @@ const AddNewBookmark = (props) => {
   return (
     <form onSubmit={handleSubmit}>
       <ButtonElement
-        type='button'
-        variant='outline-secondary'
+        type="button"
+        variant="outline-secondary"
         onClick={() => setShowModal(true)}
-        text='Add'
+        text="Add"
       />
-      <Modal centered show={showModal} autoFocus onHide={() => setShowModal(false)}>
+      <Modal
+        centered
+        show={showModal}
+        autoFocus
+        onHide={() => setShowModal(false)}
+      >
         <Modal.Header>
           <Modal.Title>Add new bookmark</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <InputGroupElement>
-            <InputGroupPrependElement groupText='www' />
+            <InputGroupPrependElement groupText="www" />
             <FormControlElement
-              name='url'
-              placeholder='www.example.com'
+              name="url"
+              placeholder="www.example.com"
               focus
               onChange={handleChange}
             />
           </InputGroupElement>
-          <label htmlFor='url'>Separate tags by , </label>
+          <label htmlFor="url">Separate tags by , </label>
           <InputGroupElement>
-            <InputGroupPrependElement groupText='Tags' />
+            <InputGroupPrependElement groupText="Tags" />
             <FormControlElement
-              name='tags'
-              placeholder='tag1, tag2,'
-              focus='false'
+              name="tags"
+              placeholder="tag1, tag2,"
+              focus="false"
               onChange={handleChange}
             />
-            <InputGroupPrependElement groupText='Title' />
+            <InputGroupPrependElement groupText="Title" />
             <FormControlElement
-              name='title'
-              placeholder='Title'
-              focus='false'
+              name="title"
+              placeholder="Title"
+              focus="false"
               onChange={handleChange}
             />
           </InputGroupElement>
         </Modal.Body>
         <Modal.Footer>
-          <ButtonElement type='submit' variant='danger' onClick={handleCancel} text='Cancel' />
           <ButtonElement
-            type='submit'
-            variant='success'
+            type="submit"
+            variant="danger"
+            onClick={handleCancel}
+            text="Cancel"
+          />
+          <ButtonElement
+            type="submit"
+            variant="success"
             onClick={handleSave}
             text={saving ? 'Saving...' : 'Save'}
           />
