@@ -45,6 +45,7 @@ const ButtonElement = (props) => {
 }
 
 const AddNewBookmark = (props) => {
+  // eslint-disable-next-line no-unused-vars
   const [userLoggedIn, setUserLoggedIn] = useState(props.userLoggedIn)
   const [title, setTitle] = useState('')
   const [url, setUrl] = useState('')
