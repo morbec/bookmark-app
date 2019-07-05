@@ -8,12 +8,13 @@ import {
 } from 'react-bootstrap'
 
 const BookmarkCard = (props) => {
-  const { bookmarks, handleDeleteBookmark } = props
+  const { bookmarks, handleDeleteBookmark, handleEditBookmark } = props
 
   const handleClick = (event, bookmark) => {
     event.persist()
     switch (event.target.innerText) {
       case 'Edit':
+        handleEditBookmark(bookmark)
         break
       case 'Delete':
         handleDeleteBookmark(bookmark)
@@ -36,6 +37,7 @@ const BookmarkCard = (props) => {
               <ButtonToolbar className="justify-content-between">
                 <ButtonGroup>
                   <Button
+                    hidden
                     onClick={(evt) => handleClick(evt, bookmark)}
                     variant="success"
                     size="sm"

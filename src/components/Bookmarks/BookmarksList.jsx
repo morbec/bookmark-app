@@ -49,6 +49,10 @@ class BookmarksList extends Component {
     )
   }
 
+  /**
+   * Function
+   * Filter the list of bookmarks when one or more tags are selected
+   */
   handleTagClick = () => {
     const { activeTags } = this
     const _filteredBookmarks = []
@@ -67,6 +71,11 @@ class BookmarksList extends Component {
         filteredBookmarks: prevState.bookmarksList
       }))
     }
+  }
+
+  // eslint-disable-next-line no-unused-vars
+  handleEditBookmark = (bookmark) => {
+    // TOOD: Need an idea of how I can edit an bookmark
   }
 
   /**
@@ -102,6 +111,7 @@ class BookmarksList extends Component {
             {this.state.userLoggedIn ? (
               <React.Fragment>
                 <BookmarkCard
+                  handleEditBookmark={this.handleEditBookmark}
                   handleDeleteBookmark={this.handleDeleteBookmark}
                   bookmarks={this.state.filteredBookmarks}
                 />

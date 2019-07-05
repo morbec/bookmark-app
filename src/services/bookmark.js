@@ -26,11 +26,20 @@ const getBookmarkById = (_id) => {
     .catch((error) => error)
 }
 
-const editBookmark = (_id, title, url) => {
-  service
-    .put(`/bookmark/:${_id}`, { title, url })
-    .then((bookmark) => bookmark)
-    .catch((error) => error)
+/**
+ * Edit bookmark
+ * @param {string} _id id of the bookmark being edited
+ * @param {string} title Title of the bookmark being edited
+ * @param {string} url URL of the bookmark being edited
+ * @param {[string]} tags Tags edited/added to the bookmark being edited
+ * @returns {Promise}
+ */
+const editBookmark = async (_id, title, url, tags) => {
+  try {
+    return await service.put(`/bookmark/${_id}`, { title, url, tags })
+  } catch (error) {
+    return Promise.reject(error)
+  }
 }
 
 const deleteBookmark = async (_id) => {
