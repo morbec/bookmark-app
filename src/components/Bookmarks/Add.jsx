@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Alert, Button, Modal, InputGroup, FormControl } from 'react-bootstrap'
 // eslint-disable-next-line import/no-unresolved
 import { addBookmark } from 'services/bookmark'
@@ -47,10 +47,12 @@ const ButtonElement = (props) => {
 const AddNewBookmark = (props) => {
   // eslint-disable-next-line no-unused-vars
   const [userLoggedIn, setUserLoggedIn] = useState(props.userLoggedIn)
-  const [title, setTitle] = useState('')
+  // const [bookmark, setBookmark] = useState(null)
+  const [bookmark, setBookmark] = useState(props.bookmark)
+  const [title, setTitle] = useState(props.bookmark ? bookmark.title : '')
   const [url, setUrl] = useState('')
   const [tags, setTags] = useState('')
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState(props.showModal)
   const [saving, setSaving] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const [error, setError] = useState(false)
@@ -136,10 +138,12 @@ const AddNewBookmark = (props) => {
           <InputGroupElement>
             <InputGroupPrependElement groupText="www" />
             <FormControlElement
+              as="input"
               name="url"
               placeholder="www.example.com"
               focus
               onChange={handleChange}
+              value={props.bookmark ? props.bookmark.url : 'fooo'}
             />
           </InputGroupElement>
           <label htmlFor="url">Separate tags by , </label>
@@ -153,6 +157,7 @@ const AddNewBookmark = (props) => {
             />
             <InputGroupPrependElement groupText="Title" />
             <FormControlElement
+              as="input"
               name="title"
               placeholder="Title"
               focus="false"

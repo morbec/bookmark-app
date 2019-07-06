@@ -2,17 +2,40 @@
 /* eslint-disable react/no-did-update-set-state */
 /* eslint-disable react/no-array-index-key */
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 import { Alert, Col, Jumbotron, Row } from 'react-bootstrap'
 import { TagsList } from 'components/Tags'
 import { bookmarks, deleteBookmark } from 'services/bookmark'
 import { deleteTag } from 'services/tags'
 import BookmarkCard from './Card'
+import AddNewBookmark from './Add'
 
+class EditBookmarkModal extends Component {
+  constructor(props) {
+    super(props)
+    this.el = document.createElement('div')
+  }
+  componentDidMount() {
+    document.getElementById('edit-bookmark').appendChild(this.el)
+  }
+
+  componentWillUnmount() {
+    document.getElementById('edit-bookmark').removeChild(this.el)
+  }
+
+  render() {
+    return ReactDOM.createPortal(this.props.children, this.el)
+  }
+}
+
+// eslint-disable-next-line react/no-multi-comp
 class BookmarksList extends Component {
   state = {
+    bookmark: null,
     bookmarksList: [],
     filteredBookmarks: [],
-    userLoggedIn: this.props.userLoggedIn
+    userLoggedIn: this.props.userLoggedIn,
+    showEditBookmarkModal: false
   }
   activeTags = []
 
@@ -76,11 +99,13 @@ class BookmarksList extends Component {
   // eslint-disable-next-line no-unused-vars
   handleEditBookmark = (bookmark) => {
     // TOOD: Need an idea of how I can edit an bookmark
+    this.setState({ bookmark: bookmark })
+    this.setState({ showEditBookmarkModal: true })
   }
 
   /**
    * Function
-   * @param {Object} bookmark - Bookmark object
+   * @param {{title: string, url: string, _tags:[string]}} bookmark - A Bookmark object
    */
   handleDeleteBookmark = (bookmark) => {
     bookmark._tags.forEach((tag) => {
@@ -97,42 +122,57 @@ class BookmarksList extends Component {
   }
 
   render() {
+    const showModal = this.state.showEditBookmarkModal ? (
+      <EditBookmarkModal>
+        <AddNewBookmark
+          showModal
+          bookmark={this.state.bookmark}
+          userLoggedIn={this.state.userLoggedIn}
+          editing
+        />
+      </EditBookmarkModal>
+    ) : (
+      ''
+    )
     return (
-      <Jumbotron style={{ height: '100vh' }}>
-        <Row>
-          <Col xs={2}>
-            <TagsList
-              activeTags={this.activeTags}
-              handleTagClick={this.handleTagClick}
-              bookmarks={this.state.bookmarksList}
-            />
-          </Col>
-          <Col xs={9}>
-            {this.state.userLoggedIn ? (
-              <React.Fragment>
-                <BookmarkCard
-                  handleEditBookmark={this.handleEditBookmark}
-                  handleDeleteBookmark={this.handleDeleteBookmark}
-                  bookmarks={this.state.filteredBookmarks}
-                />
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-                <Alert variant="danger">
-                  <Alert.Heading>Protected content</Alert.Heading>
-                  <p>
-                    You need to
-                    <strong>Log in</strong>
-                    or
-                    <strong>Sign up</strong>
-                    first.
-                  </p>
-                </Alert>
-              </React.Fragment>
-            )}
-          </Col>
-        </Row>
-      </Jumbotron>
+      <div>
+        {showModal}
+        <Jumbotron style={{ height: '100vh' }}>
+          <Row>
+            <Col xs={2}>
+              <TagsList
+                activeTags={this.activeTags}
+                handleTagClick={this.handleTagClick}
+                bookmarks={this.state.bookmarksList}
+              />
+            </Col>
+            <Col xs={9}>
+              {this.state.userLoggedIn ? (
+                <React.Fragment>
+                  <BookmarkCard
+                    handleEditBookmark={this.handleEditBookmark}
+                    handleDeleteBookmark={this.handleDeleteBookmark}
+                    bookmarks={this.state.filteredBookmarks}
+                  />
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  <Alert variant="danger">
+                    <Alert.Heading>Protected content</Alert.Heading>
+                    <p>
+                      You need to
+                      <strong>Log in</strong>
+                      or
+                      <strong>Sign up</strong>
+                      first.
+                    </p>
+                  </Alert>
+                </React.Fragment>
+              )}
+            </Col>
+          </Row>
+        </Jumbotron>
+      </div>
     )
   }
 }

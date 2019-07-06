@@ -37,7 +37,6 @@ const BookmarkCard = (props) => {
               <ButtonToolbar className="justify-content-between">
                 <ButtonGroup>
                   <Button
-                    hidden
                     onClick={(evt) => handleClick(evt, bookmark)}
                     variant="success"
                     size="sm"
