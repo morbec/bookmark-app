@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Alert, Button, Modal, InputGroup, FormControl } from 'react-bootstrap'
 // eslint-disable-next-line import/no-unresolved
 import { addBookmark } from 'services/bookmark'
@@ -45,11 +45,7 @@ const ButtonElement = (props) => {
 }
 
 const AddNewBookmark = (props) => {
-  // eslint-disable-next-line no-unused-vars
-  const [userLoggedIn, setUserLoggedIn] = useState(props.userLoggedIn)
-  // const [bookmark, setBookmark] = useState(null)
-  const [bookmark, setBookmark] = useState(props.bookmark)
-  const [title, setTitle] = useState(props.bookmark ? bookmark.title : '')
+  const [title, setTitle] = useState('')
   const [url, setUrl] = useState('')
   const [tags, setTags] = useState('')
   const [showModal, setShowModal] = useState(props.showModal)
@@ -125,12 +121,7 @@ const AddNewBookmark = (props) => {
         onClick={() => setShowModal(true)}
         text="Add"
       />
-      <Modal
-        centered
-        show={showModal}
-        autoFocus
-        onHide={() => setShowModal(false)}
-      >
+      <Modal centered show={showModal} autoFocus onHide={() => setShowModal(false)}>
         <Modal.Header>
           <Modal.Title>Add new bookmark</Modal.Title>
         </Modal.Header>
@@ -166,12 +157,7 @@ const AddNewBookmark = (props) => {
           </InputGroupElement>
         </Modal.Body>
         <Modal.Footer>
-          <ButtonElement
-            type="submit"
-            variant="danger"
-            onClick={handleCancel}
-            text="Cancel"
-          />
+          <ButtonElement type="submit" variant="danger" onClick={handleCancel} text="Cancel" />
           <ButtonElement
             type="submit"
             variant="success"
