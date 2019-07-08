@@ -2,9 +2,14 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
-    node: true
+    node: false
   },
-  extends: [ 'airbnb', 'eslint:recommended', 'plugin:react/recommended', 'plugin:jsx-a11y/recommended' ],
+  extends: [
+    'airbnb',
+    'plugin:jsx-a11y/recommended',
+    'eslint:recommended',
+    'plugin:react/recommended'
+  ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly'
@@ -17,15 +22,15 @@ module.exports = {
     sourceType: 'module'
   },
   parser: 'babel-eslint',
-  plugins: [ 'react', 'jsx-a11y', 'react-hooks' ],
+  plugins: ['react', 'react-hooks', 'jsx-a11y'],
   rules: {
-    'react/prop-types': [ 0 ],
-    'react/no-array-index-key': [ 0 ],
+    'react/prop-types': [0],
+    'react/no-array-index-key': [0],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
-    'react/destructuring-assignment': [ 'off', { ignoreClassFields: true } ],
-    // 'react/jsx-filename-extension': [ 1, { extensions: [ '.js', '.jsx' ] } ],
-    'import/newline-after-import': [ 'off', { count: 2 } ],
+    'react/destructuring-assignment': ['off', { ignoreClassFields: true }],
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'import/newline-after-import': ['off', { count: 2 }],
     'eslint.autoFixOnSave': true,
     'eslint.alwaysShowStatus': true,
     'react/jsx-uses-react': 'error',
@@ -35,9 +40,9 @@ module.exports = {
     'jsx-a11y/label-has-associated-control': [
       2,
       {
-        labelComponents: [ 'CustomInputLabel' ],
-        labelAttributes: [ 'label' ],
-        controlComponents: [ 'CustomInput' ],
+        labelComponents: ['CustomInputLabel'],
+        labelAttributes: ['label'],
+        controlComponents: ['CustomInput'],
         depth: 3
       }
     ]
