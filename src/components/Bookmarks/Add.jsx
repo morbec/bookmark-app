@@ -1,48 +1,13 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react'
-import { Alert, Button, Modal, InputGroup, FormControl } from 'react-bootstrap'
+import { Modal } from 'react-bootstrap'
 // eslint-disable-next-line import/no-unresolved
 import { addBookmark } from 'services/bookmark'
-
-const AlertError = (props) => (
-  <Alert variant="danger">
-    <Alert.Heading>Something whent wrong</Alert.Heading>
-    <p>{props.errorMessage}</p>
-  </Alert>
-)
-
-const InputGroupElement = (props) => {
-  return <InputGroup className="mb-3">{props.children}</InputGroup>
-}
-
-const InputGroupPrependElement = (props) => {
-  return (
-    <InputGroup.Prepend>
-      <InputGroup.Text>{props.groupText}</InputGroup.Text>
-    </InputGroup.Prepend>
-  )
-}
-
-const FormControlElement = (props) => {
-  return (
-    <FormControl
-      name={props.name}
-      placeholder={props.placeholder}
-      as="input"
-      focus={props.focus.toString()}
-      aria-describedby={props.name}
-      onChange={props.onChange}
-    />
-  )
-}
-
-const ButtonElement = (props) => {
-  return (
-    <Button type={props.type} variant={props.variant} onClick={props.onClick}>
-      {props.text}
-    </Button>
-  )
-}
+import AlertError from './AlertError'
+import InputGroupElement from './InputGroupElement'
+import InputGroupPrependElement from './InputGroupPrependElement'
+import FormControlElement from './FormControlElement'
+import ButtonElement from './ButtonElement'
 
 const AddNewBookmark = (props) => {
   const [title, setTitle] = useState('')
