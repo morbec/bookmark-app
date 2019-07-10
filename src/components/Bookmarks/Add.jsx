@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { Modal } from 'react-bootstrap'
 // eslint-disable-next-line import/no-unresolved
-import { addBookmark } from 'services/bookmark'
+import { addBookmark, editBookmark } from 'services/bookmark'
 import AlertError from './AlertError'
 import InputGroupElement from './InputGroupElement'
 import InputGroupPrependElement from './InputGroupPrependElement'
@@ -10,9 +10,13 @@ import FormControlElement from './FormControlElement'
 import ButtonElement from './ButtonElement'
 
 const AddNewBookmark = (props) => {
-  const [title, setTitle] = useState('')
-  const [url, setUrl] = useState('')
-  const [tags, setTags] = useState('')
+  const [title, setTitle] = useState(props.editing ? props.bookmark.title : '')
+  const [url, setUrl] = useState(props.editing ? props.bookmark.url : '')
+  const [tags, setTags] = useState(
+    props.editing
+      ? props.bookmark._tags.map((tag) => tag.name).reduce((val, next) => `${val},${next}`)
+      : ''
+  )
   const [showModal, setShowModal] = useState(props.showModal)
   const [saving, setSaving] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
@@ -50,18 +54,29 @@ const AddNewBookmark = (props) => {
       setError(false)
       setSaving(true)
       const arrayOfTags = tags.split(',').filter((tag) => tag.trim())
-      addBookmark(title, url, arrayOfTags)
-        .then((bookmark) => {
-          setSaving(false)
-          setShowModal(false)
-          props.saveUrl({ newBookmark: bookmark })
-        })
-        .catch((error) => {
-          setErrorMessage(error.message)
-          setShowModal(true)
-          setSaving(false)
-          setError(true)
-        })
+      if (props.editing) {
+        editBookmark(props.bookmark._id, title, url, arrayOfTags)
+          .then((editedBookmark) => {
+            setSaving(false)
+            setShowModal(false)
+            // TODO: Show message in the modal insteaf of alert popup
+            props.saveUrl({ newBookmark: editedBookmark })
+          })
+          .catch((error) => alert(`error editing bookmark:  ${error}`))
+      } else {
+        addBookmark(title, url, arrayOfTags)
+          .then((bookmark) => {
+            setSaving(false)
+            setShowModal(false)
+            props.saveUrl({ newBookmark: bookmark })
+          })
+          .catch((error) => {
+            setErrorMessage(error.message)
+            setShowModal(true)
+            setSaving(false)
+            setError(true)
+          })
+      }
       setUrl('')
       setTitle('')
       setTags('')
@@ -88,7 +103,7 @@ const AddNewBookmark = (props) => {
       />
       <Modal centered show={showModal} autoFocus onHide={() => setShowModal(false)}>
         <Modal.Header>
-          <Modal.Title>Add new bookmark</Modal.Title>
+          <Modal.Title>{props.modalTitle}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <InputGroupElement>
@@ -99,7 +114,7 @@ const AddNewBookmark = (props) => {
               placeholder="www.example.com"
               focus
               onChange={handleChange}
-              value={props.bookmark ? props.bookmark.url : 'fooo'}
+              value={props.bookmark ? props.bookmark.url : ''}
             />
           </InputGroupElement>
           <label htmlFor="url">Separate tags by , </label>
@@ -110,6 +125,13 @@ const AddNewBookmark = (props) => {
               placeholder="tag1, tag2,"
               focus="false"
               onChange={handleChange}
+              value={
+                props.bookmark
+                  ? props.bookmark._tags
+                      .map((tag) => tag.name)
+                      .reduce((val, next) => val + ',' + next)
+                  : ''
+              }
             />
             <InputGroupPrependElement groupText="Title" />
             <FormControlElement
@@ -118,6 +140,19 @@ const AddNewBookmark = (props) => {
               placeholder="Title"
               focus="false"
               onChange={handleChange}
+              value={props.bookmark ? props.bookmark.title : ''}
+              // This element is the last one to be rendered that's way I am passing
+              // the values of title, url and tags here, otherwise they get cleared everytime
+              // the elements above are rendered
+              bookmarkTitle={props.bookmark ? props.bookmark.title : ''}
+              bookmarkUrl={props.bookmark ? props.bookmark.url : ''}
+              bookmarkTags={
+                props.bookmark
+                  ? props.bookmark._tags
+                      .map((tag) => tag.name)
+                      .reduce((val, next) => val + ',' + next)
+                  : ''
+              }
             />
           </InputGroupElement>
         </Modal.Body>
@@ -136,4 +171,4 @@ const AddNewBookmark = (props) => {
   )
 }
 
-export default AddNewBookmark
+export { AddNewBookmark, AddNewBookmark as EditBookmark }

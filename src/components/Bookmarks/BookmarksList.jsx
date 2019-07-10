@@ -8,7 +8,7 @@ import { TagsList } from 'components/Tags'
 import { bookmarks, deleteBookmark } from 'services/bookmark'
 import { deleteTag } from 'services/tags'
 import BookmarkCard from './Card'
-import AddNewBookmark from './Add'
+import { EditBookmark } from './Add'
 
 class EditBookmarkModal extends Component {
   constructor(props) {
@@ -18,6 +18,10 @@ class EditBookmarkModal extends Component {
   componentDidMount() {
     document.getElementById('edit-bookmark').appendChild(this.el)
   }
+
+  // NOTE: this is called after user click the edit button for a second time
+  // Maybe I can use this to change the showEditBookmarkModal value to false again
+  componentDidUpdate() {}
 
   componentWillUnmount() {
     document.getElementById('edit-bookmark').removeChild(this.el)
@@ -84,8 +88,7 @@ class BookmarksList extends Component {
         const _bookmarks = this.getBookmarksByTag(tagId)
         // TODO: Check if I need to do this indeed
         _bookmarks.forEach((bookmark) => {
-          if (!_filteredBookmarks.includes(bookmark))
-            _filteredBookmarks.push(bookmark)
+          if (!_filteredBookmarks.includes(bookmark)) _filteredBookmarks.push(bookmark)
         })
       })
       this.setState({ filteredBookmarks: _filteredBookmarks })
@@ -124,11 +127,13 @@ class BookmarksList extends Component {
   render() {
     const showModal = this.state.showEditBookmarkModal ? (
       <EditBookmarkModal>
-        <AddNewBookmark
+        <EditBookmark
           showModal
+          saveUrl={this.props.saveUrl}
           bookmark={this.state.bookmark}
           userLoggedIn={this.state.userLoggedIn}
           editing
+          modalTitle="Edit bookmark"
         />
       </EditBookmarkModal>
     ) : (

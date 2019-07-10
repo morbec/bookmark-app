@@ -16,44 +16,44 @@ import './App.css'
 const browserHistory = createBrowserHistory()
 
 const App = () => {
-  const [ loggedInUser, setLoggedInUser ] = useState(null)
+  const [loggedInUser, setLoggedInUser] = useState(null)
 
-  useEffect(
-    () => {
-      if (!loggedInUser) {
-        loggedIn().then((user) => {
-          setLoggedInUser(user)
-        })
-      }
-    },
-    [ loggedInUser ]
-  )
+  useEffect(() => {
+    if (!loggedInUser) {
+      loggedIn().then((user) => {
+        setLoggedInUser(user)
+      })
+    }
+  }, [loggedInUser])
 
   const setUser = (user) => setLoggedInUser(user)
 
   // update the list of bookmarks after a new bookmark is successfully added to the database
   // So far, I don't need to manage bookmark state itself
-  const [ , setBookmark ] = useState(null)
+  const [, setBookmark] = useState(null)
+
   const saveNewBookmark = (newBookmark) => {
     setBookmark(newBookmark)
   }
 
   return (
-    <div className='App'>
+    <div className="App">
       <Router history={browserHistory}>
         <AppNavbar saveUrl={saveNewBookmark} setUser={setUser} userLoggedIn={loggedInUser} />
         <Switch>
-          <Route exact path='/' component={Home} />
+          <Route exact path="/" component={Home} />
           <Route
             exact
-            path='/sign-up'
+            path="/sign-up"
             render={(props) => <SignUp {...props} setUser={setUser} />}
           />
-          <Route exact path='/login' render={(props) => <Login {...props} setUser={setUser} />} />
+          <Route exact path="/login" render={(props) => <Login {...props} setUser={setUser} />} />
           <Route
             exact
-            path='/bookmarks'
-            render={(props) => <BookmarksList {...props} userLoggedIn={loggedInUser} />}
+            path="/bookmarks"
+            render={(props) => (
+              <BookmarksList saveUrl={saveNewBookmark} {...props} userLoggedIn={loggedInUser} />
+            )}
           />
         </Switch>
       </Router>
