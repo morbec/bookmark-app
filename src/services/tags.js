@@ -6,20 +6,32 @@ const service = axios.create({
 })
 
 const tags = () => {
-  return service.get('/tag').then((response) => response.data).catch((error) => error)
+  return service
+    .get('/tag')
+    .then((response) => response.data)
+    .catch((error) => error)
 }
 
 const tagsById = (_id) => {
-  return service.get(`/tag/:${_id}`).then((tag) => tag).catch((error) => error)
+  return service
+    .get(`/tag/${_id}`)
+    .then((tag) => tag)
+    .catch((error) => error)
 }
 
 const editTag = (_id, name) => {
-  return service.put(`/tag/:${_id}`, { name }).then((tag) => tag).catch((error) => error)
+  return service
+    .put(`/tag/${_id}`, { name })
+    .then((tag) => tag)
+    .catch((error) => error)
 }
 
-const deleteTag = (_id) => {
-  // service.delete(`/tag/:${_id}`).then((response) => response.data).catch((error) => error)
-  return service.delete(`/tag/:${_id}`).then((response) => response).catch((error) => error)
+const deleteTag = async (_id) => {
+  try {
+    return await service.delete(`/tag/${_id}`)
+  } catch (error) {
+    return Promise.reject(error)
+  }
 }
 
 export { tags, tagsById, editTag, deleteTag }

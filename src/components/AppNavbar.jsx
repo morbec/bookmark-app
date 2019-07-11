@@ -8,7 +8,7 @@ import Navbar from 'react-bootstrap/Navbar'
 
 // import { logout } from 'services/auth'
 import { logout } from '../services/auth'
-import AddNewBookmark from './Bookmarks/Add'
+import { AddNewBookmark } from './Bookmarks/Add'
 import SearchBookmarks from './Bookmarks/Search'
 
 class AppNavbar extends Component {
@@ -33,35 +33,40 @@ class AppNavbar extends Component {
 
   render() {
     return (
-      <Navbar sticky='top' variant='dark' bg='dark' expand='lg'>
+      <Navbar sticky="top" variant="dark" bg="dark" expand="lg">
         <Navbar.Brand>
           {/* TODO: Move style to css file */}
-          <Link to='/bookmarks' style={{ textDecoration: 'none', color: '#9A9DA0' }}>
+          <Link to="/bookmarks" style={{ textDecoration: 'none', color: '#9A9DA0' }}>
             Bookmarks
           </Link>
         </Navbar.Brand>
         <Navbar>
           {this.state.userLoggedIn && (
-            <AddNewBookmark saveUrl={this.props.saveUrl} userLoggedIn={this.state.userLoggedIn} />
+            <AddNewBookmark
+              editing={false}
+              saveUrl={this.props.saveUrl}
+              userLoggedIn={this.state.userLoggedIn}
+              modalTitle="Add new bookmark"
+            />
           )}
         </Navbar>
-        <Navbar.Toggle aria-controls='basic-navbar-nav' />
-        <Navbar.Collapse className='justify-content-end' id='basic-navbar-nav'>
-          <Nav hidden={!this.state.userLoggedIn} className='justify-content-center'>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
+          <Nav hidden={!this.state.userLoggedIn} className="justify-content-center">
             <Nav.Item>
               <Form inline>
-                <SearchBookmarks placeholder='Search...' />
+                <SearchBookmarks placeholder="Search..." />
               </Form>
             </Nav.Item>
           </Nav>
-          <Nav className='justify-content-end'>
+          <Nav className="justify-content-end">
             {this.state.userLoggedIn ? (
               <React.Fragment>
                 <Nav.Item>
                   <Nav.Link
-                    variant='outline-info'
-                    as='a'
-                    href='/'
+                    variant="outline-info"
+                    as="a"
+                    href="/"
                     onClick={this.handleLogout}
                     style={{ textDecoration: 'none', color: '#9A9DA0' }}
                   >
@@ -70,9 +75,9 @@ class AppNavbar extends Component {
                 </Nav.Item>
                 <Nav.Item>
                   <Nav.Link
-                    variant='outline-info'
-                    as='a'
-                    href='/Settings'
+                    variant="outline-info"
+                    as="a"
+                    href="/Settings"
                     disabled
                     style={{ textDecoration: 'none', color: '#9A9DA0' }}
                   >
@@ -84,9 +89,9 @@ class AppNavbar extends Component {
               <React.Fragment>
                 <Nav.Item>
                   <Nav.Link
-                    variant='outline-linfo'
-                    as='a'
-                    href='/login'
+                    variant="outline-linfo"
+                    as="a"
+                    href="/login"
                     style={{ textDecoration: 'none', color: '#9A9DA0' }}
                   >
                     Log in
@@ -94,9 +99,9 @@ class AppNavbar extends Component {
                 </Nav.Item>
                 <Nav.Item>
                   <Nav.Link
-                    variant='outline-info'
-                    as='a'
-                    href='/sign-up'
+                    variant="outline-info"
+                    as="a"
+                    href="/sign-up"
                     style={{ textDecoration: 'none', color: '#9A9DA0' }}
                   >
                     Sign up
