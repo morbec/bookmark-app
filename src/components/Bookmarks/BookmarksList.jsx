@@ -51,6 +51,7 @@ class BookmarksList extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
       this.setState({ userLoggedIn: this.props.userLoggedIn })
+      this.setState({ showEditBookmarkModal: false })
       this.getBookmarks()
     }
   }
@@ -101,7 +102,6 @@ class BookmarksList extends Component {
 
   // eslint-disable-next-line no-unused-vars
   handleEditBookmark = (bookmark) => {
-    // TOOD: Need an idea of how I can edit an bookmark
     this.setState({ bookmark: bookmark })
     this.setState({ showEditBookmarkModal: true })
   }
@@ -124,6 +124,10 @@ class BookmarksList extends Component {
       .catch((error) => alert(error))
   }
 
+  hideModal = () => {
+    this.setState({ showEditBookmarkModal: false })
+  }
+
   render() {
     const showModal = this.state.showEditBookmarkModal ? (
       <EditBookmarkModal>
@@ -133,6 +137,7 @@ class BookmarksList extends Component {
           bookmark={this.state.bookmark}
           userLoggedIn={this.state.userLoggedIn}
           editing
+          hideModal={this.hideModal}
           modalTitle="Edit bookmark"
         />
       </EditBookmarkModal>
