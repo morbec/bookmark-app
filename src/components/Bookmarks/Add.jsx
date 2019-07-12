@@ -14,7 +14,7 @@ const AddNewBookmark = (props) => {
   const [url, setUrl] = useState(props.editing ? props.bookmark.url : '')
   const [tags, setTags] = useState(
     props.editing
-      ? props.bookmark._tags.map((tag) => tag.name).reduce((val, next) => `${val},${next}`)
+      ? props.bookmark._tags.map((tag) => tag.name).reduce((val, next) => `${val},${next}`, '')
       : ''
   )
   const [showModal, setShowModal] = useState(props.showModal)
@@ -130,7 +130,7 @@ const AddNewBookmark = (props) => {
                 props.bookmark
                   ? props.bookmark._tags
                       .map((tag) => tag.name)
-                      .reduce((val, next) => val + ',' + next)
+                      .reduce((val, next) => val + ',' + next, '')
                   : ''
               }
             />
@@ -151,7 +151,7 @@ const AddNewBookmark = (props) => {
                 props.bookmark
                   ? props.bookmark._tags
                       .map((tag) => tag.name)
-                      .reduce((val, next) => val + ',' + next)
+                      .reduce((val, next) => val + ',' + next, '')
                   : ''
               }
             />
