@@ -33,7 +33,7 @@ class AppNavbar extends Component {
 
   render() {
     return (
-      <Navbar sticky="top" variant="dark" bg="dark" expand="lg">
+      <Navbar fixed="top" variant="dark" bg="dark" expand="lg">
         <Navbar.Brand>
           {/* TODO: Move style to css file */}
           <Link to="/bookmarks" style={{ textDecoration: 'none', color: '#9A9DA0' }}>

@@ -11,8 +11,6 @@ import Home from './components/Home'
 import BookmarksList from './components/Bookmarks/BookmarksList'
 import AppNavbar from './components/AppNavbar'
 
-import './App.css'
-
 const browserHistory = createBrowserHistory()
 
 const App = () => {
@@ -37,7 +35,7 @@ const App = () => {
   }
 
   return (
-    <div className="App">
+    <div>
       <Router history={browserHistory}>
         <AppNavbar saveUrl={saveNewBookmark} setUser={setUser} userLoggedIn={loggedInUser} />
         <Switch>

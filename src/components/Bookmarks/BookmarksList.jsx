@@ -147,8 +147,7 @@ class BookmarksList extends Component {
     return (
       <div>
         {showModal}
-        <Jumbotron>
-          {/* <Jumbotron style={{ height: '100vh' }}> */}
+        <Jumbotron style={{ height: '100vh', paddingTop: '130px', marginBottom: '0px' }}>
           <Row>
             <Col xs={2}>
               <TagsList
