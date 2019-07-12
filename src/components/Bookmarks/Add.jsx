@@ -41,7 +41,7 @@ const AddNewBookmark = (props) => {
   const handleCancel = () => {
     setError(false)
     setShowModal(false)
-    props.hideModal()
+    if (props.editing) props.hideModal()
   }
 
   const handleSave = () => {
