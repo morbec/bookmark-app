@@ -9,6 +9,6 @@ _Work in progress ...._
 
 ## Deployed
 
-Preliminar version of the app, still working on it.
+Archived.
 
-[https://bookmarks--app.herokuapp.com](https://bookmarks--app.herokuapp.com)
+~~[https://bookmarks--app.herokuapp.com](https://bookmarks--app.herokuapp.com)~~
